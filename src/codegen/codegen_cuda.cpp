@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
+#if !defined( TACO_WINDOWS )
 #include <dlfcn.h>
+#endif
 #include <algorithm>
 #include <unordered_set>
 

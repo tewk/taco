@@ -2,8 +2,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <dlfcn.h>
-#include <unistd.h>
+#include "taco/tpr.h"
 #if USE_OPENMP
 #include <omp.h>
 #endif
@@ -156,9 +155,9 @@ string Module::compile() {
 
   // use dlsym() to open the compiled library
   if (lib_handle) {
-    dlclose(lib_handle);
+    tpr_dlclose(lib_handle);
   }
-  lib_handle = dlopen(fullpath.data(), RTLD_NOW | RTLD_LOCAL);
+  lib_handle = tpr_dlopen(fullpath.data(), tpr_RTLD_NOW | tpr_RTLD_LOCAL);
   taco_uassert(lib_handle) << "Failed to load generated code";
 
   return fullpath;
@@ -174,7 +173,7 @@ string Module::getSource() {
 }
 
 void* Module::getFuncPtr(std::string name) {
-  return dlsym(lib_handle, name.data());
+  return tpr_dlsym(lib_handle, name.data());
 }
 
 int Module::callFuncPackedRaw(std::string name, void** args) {

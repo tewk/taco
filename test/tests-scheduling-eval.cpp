@@ -8,6 +8,7 @@
 #include "taco/index_notation/index_notation.h"
 #include "codegen/codegen.h"
 #include "taco/lower/lower.h"
+#include "taco/tpr.h"
 
 using namespace taco;
 const IndexVar i("i"), j("j"), k("k"), l("l"), m("m"), n("n");
@@ -23,7 +24,7 @@ void printToFile(string filename, IndexStmt stmt) {
   stringstream source;
 
   string file_path = "eval_generated/";
-  mkdir(file_path.c_str(), 0777);
+  tpr_mkdir(file_path.c_str(), 0777);
 
   std::shared_ptr<ir::CodeGen> codegen = ir::CodeGen::init_default(source, ir::CodeGen::ImplementationGen);
   ir::Stmt compute = lower(stmt, "compute",  false, true);
@@ -1162,7 +1163,7 @@ TEST(generate_evaluation_files, DISABLED_cpu) {
 
   string file_ending = should_use_CUDA_codegen() ? ".cu" : ".c";
   string file_path = "eval_prepared_cpu/";
-  mkdir(file_path.c_str(), 0777);
+  tpr_mkdir(file_path.c_str(), 0777);
 
   // spmv
   {
@@ -1474,7 +1475,7 @@ TEST(generate_evaluation_files, DISABLED_gpu) {
 
   string file_ending = should_use_CUDA_codegen() ? ".cu" : ".c";
   string file_path = "eval_prepared_gpu/";
-  mkdir(file_path.c_str(), 0777);
+  tpr_mkdir(file_path.c_str(), 0777);
 
   // spmv load-balance
   {
@@ -1658,7 +1659,7 @@ TEST(generate_figures, DISABLED_cpu) {
 
   string file_ending = should_use_CUDA_codegen() ? ".cu" : ".c";
   string file_path = "figures_cpu/";
-  mkdir(file_path.c_str(), 0777);
+  tpr_mkdir(file_path.c_str(), 0777);
 
   // spmv
   {

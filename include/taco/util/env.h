@@ -3,7 +3,7 @@
 
 #include <string>
 #include <cstring>
-#include <unistd.h>
+#include "taco/tpr.h"
 
 #include "taco/error.h"
 
@@ -37,7 +37,7 @@ inline std::string getTmpdir() {
      taco_uassert(tmpdir.front() == '/') <<
       "The TMPDIR environment variable must be an absolute path";
 
-    taco_uassert(access(tmpdir.c_str(), W_OK) == 0) <<
+    taco_uassert(tpr_file_exists(tmpdir.c_str()) == 0) <<
       "Unable to write to temporary directory for code generation. "
       "Please set the environment variable TMPDIR to somewhere writable";
 
@@ -45,7 +45,7 @@ inline std::string getTmpdir() {
     auto tacotmpdirtemplate = tmpdir + "taco_tmp_XXXXXX";
     char *ctacotmpdirtemplate = new char[tacotmpdirtemplate.length() + 1];
     std::strcpy(ctacotmpdirtemplate, tacotmpdirtemplate.c_str());
-    char *ctacotmpdir = mkdtemp(ctacotmpdirtemplate);
+    char *ctacotmpdir = tpr_mkdtemp(ctacotmpdirtemplate);
     taco_uassert(ctacotmpdir != NULL) <<
       "Unable to create taco temporary directory for code generation. Please set"
       "the environment variable TMPDIR to somewhere searchable and writable";

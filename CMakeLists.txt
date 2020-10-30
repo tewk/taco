@@ -72,13 +72,17 @@ if(CUDA)
 else()
   set(C_CXX_FLAGS "-Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -Wmissing-declarations -Woverloaded-virtual -pedantic-errors -Wno-deprecated")
 endif(CUDA)
+if( CMAKE_CXX_COMPILER_ID EQUAL "MSVC" )
+  set(C_CXX_FLAGS "-Wall")
+endif()
+set(C_CXX_FLAGS "-Wall")
 if(OPENMP)
   set(C_CXX_FLAGS "-fopenmp ${C_CXX_FLAGS}")
 endif(OPENMP)
 
 set(C_CXX_FLAGS "${C_CXX_FLAGS}")
 set(CMAKE_C_FLAGS "${C_CXX_FLAGS}")
-set(CMAKE_CXX_FLAGS "${C_CXX_FLAGS} -std=c++14")
+set(CMAKE_CXX_FLAGS "${C_CXX_FLAGS} -std:c++14")
 
 set(TACO_PROJECT_DIR ${CMAKE_CURRENT_LIST_DIR})
 

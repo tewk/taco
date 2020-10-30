@@ -1,12 +1,12 @@
 #include "test.h"
 #include "taco/type.h"
 #include "test_tensors.h"
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 #include "taco/tensor.h"
 #include "taco/storage/typed_vector.h"
 
-#define _USE_MATH_DEFINES
 
 
 using namespace taco;
@@ -45,7 +45,7 @@ TYPED_TEST_P(VectorTensorTest, types) {
   ASSERT_EQ(t, a.getComponentType());
   ASSERT_EQ(1, a.getOrder());
   ASSERT_EQ(5, a.getDimension(0));
-  map<vector<int>,TypeParam> vals = {{{0}, 1.0}, {{2}, 2.0}};
+  map<vector<int>,TypeParam> vals = {{{0}, static_cast< TypeParam >( 1.0 )}, {{2}, static_cast< TypeParam >( 2.0 )}};
   for (auto& val : vals) {
     a.insert(val.first, val.second);
   }
