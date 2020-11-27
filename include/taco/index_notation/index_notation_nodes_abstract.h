@@ -18,7 +18,7 @@ class OperatorSplit;
 class Precompute;
 
 /// A node of a scalar index expression tree.
-struct IndexExprNode : public util::Manageable<IndexExprNode>,
+struct TACO_EXPORT IndexExprNode : public util::Manageable<IndexExprNode>,
                        private util::Uncopyable {
 public:
   IndexExprNode();

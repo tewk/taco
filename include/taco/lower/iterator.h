@@ -29,7 +29,7 @@ class Expr;
 
 /// A compile-time iterator over a (tensor) `Mode`. This class can be used
 /// to generate the IR expressions for accessing different level types.
-class Iterator : public util::Comparable<Iterator> {
+class TACO_EXPORT Iterator : public util::Comparable<Iterator> {
 public:
   /// Construct an undefind iterator.
   Iterator();
@@ -176,7 +176,7 @@ private:
  * Tensor iterators, one iterator chain per tensor access, iterate over tensor
  * coordinate hierarchies and mode iterators iterate over tensor modes.
  */
-class Iterators {
+class TACO_EXPORT Iterators {
 public:
   Iterators();
 

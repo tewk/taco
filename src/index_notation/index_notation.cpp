@@ -792,11 +792,11 @@ Assignment Access::operator+=(const IndexExpr& expr) {
   return assignment;
 }
 
-template <> bool isa<Access>(IndexExpr e) {
+template <> TACO_EXPORT bool isa<Access>(IndexExpr e) {
   return isa<AccessNode>(e.ptr);
 }
 
-template <> Access to<Access>(IndexExpr e) {
+template <> TACO_EXPORT Access to<Access>(IndexExpr e) {
   taco_iassert(isa<Access>(e));
   return Access(to<AccessNode>(e.ptr));
 }
@@ -878,28 +878,28 @@ IndexExpr Literal::zero(Datatype type) {
 template <typename T> T Literal::getVal() const {
   return getNode(*this)->getVal<T>();
 }
-template bool Literal::getVal() const;
-template unsigned char Literal::getVal() const;
-template unsigned short Literal::getVal() const;
-template unsigned int Literal::getVal() const;
-template unsigned long Literal::getVal() const;
-template unsigned long long Literal::getVal() const;
-template char Literal::getVal() const;
-template short Literal::getVal() const;
-template int Literal::getVal() const;
-template long Literal::getVal() const;
-template long long Literal::getVal() const;
-template int8_t Literal::getVal() const;
-template float Literal::getVal() const;
-template double Literal::getVal() const;
-template std::complex<float> Literal::getVal() const;
-template std::complex<double> Literal::getVal() const;
+template TACO_EXPORT bool Literal::getVal() const;
+template TACO_EXPORT unsigned char Literal::getVal() const;
+template TACO_EXPORT unsigned short Literal::getVal() const;
+template TACO_EXPORT unsigned int Literal::getVal() const;
+template TACO_EXPORT unsigned long Literal::getVal() const;
+template TACO_EXPORT unsigned long long Literal::getVal() const;
+template TACO_EXPORT char Literal::getVal() const;
+template TACO_EXPORT short Literal::getVal() const;
+template TACO_EXPORT int Literal::getVal() const;
+template TACO_EXPORT long Literal::getVal() const;
+template TACO_EXPORT long long Literal::getVal() const;
+template TACO_EXPORT int8_t Literal::getVal() const;
+template TACO_EXPORT float Literal::getVal() const;
+template TACO_EXPORT double Literal::getVal() const;
+template TACO_EXPORT std::complex<float> Literal::getVal() const;
+template TACO_EXPORT std::complex<double> Literal::getVal() const;
 
-template <> bool isa<Literal>(IndexExpr e) {
+template <> TACO_EXPORT bool isa<Literal>(IndexExpr e) {
   return isa<LiteralNode>(e.ptr);
 }
 
-template <> Literal to<Literal>(IndexExpr e) {
+template <> TACO_EXPORT Literal to<Literal>(IndexExpr e) {
   taco_iassert(isa<Literal>(e));
   return Literal(to<LiteralNode>(e.ptr));
 }
@@ -916,11 +916,11 @@ IndexExpr Neg::getA() const {
   return getNode(*this)->a;
 }
 
-template <> bool isa<Neg>(IndexExpr e) {
+template <> TACO_EXPORT bool isa<Neg>(IndexExpr e) {
   return isa<NegNode>(e.ptr);
 }
 
-template <> Neg to<Neg>(IndexExpr e) {
+template <> TACO_EXPORT Neg to<Neg>(IndexExpr e) {
   taco_iassert(isa<Neg>(e));
   return Neg(to<NegNode>(e.ptr));
 }
@@ -944,11 +944,11 @@ IndexExpr Add::getB() const {
   return getNode(*this)->b;
 }
 
-template <> bool isa<Add>(IndexExpr e) {
+template <> TACO_EXPORT bool isa<Add>(IndexExpr e) {
   return isa<AddNode>(e.ptr);
 }
 
-template <> Add to<Add>(IndexExpr e) {
+template <> TACO_EXPORT Add to<Add>(IndexExpr e) {
   taco_iassert(isa<Add>(e));
   return Add(to<AddNode>(e.ptr));
 }
@@ -972,11 +972,11 @@ IndexExpr Sub::getB() const {
   return getNode(*this)->b;
 }
 
-template <> bool isa<Sub>(IndexExpr e) {
+template <> TACO_EXPORT bool isa<Sub>(IndexExpr e) {
   return isa<SubNode>(e.ptr);
 }
 
-template <> Sub to<Sub>(IndexExpr e) {
+template <> TACO_EXPORT Sub to<Sub>(IndexExpr e) {
   taco_iassert(isa<Sub>(e));
   return Sub(to<SubNode>(e.ptr));
 }
@@ -1000,11 +1000,11 @@ IndexExpr Mul::getB() const {
   return getNode(*this)->b;
 }
 
-template <> bool isa<Mul>(IndexExpr e) {
+template <> TACO_EXPORT bool isa<Mul>(IndexExpr e) {
   return isa<MulNode>(e.ptr);
 }
 
-template <> Mul to<Mul>(IndexExpr e) {
+template <> TACO_EXPORT Mul to<Mul>(IndexExpr e) {
   taco_iassert(isa<Mul>(e));
   return Mul(to<MulNode>(e.ptr));
 }
@@ -1028,11 +1028,11 @@ IndexExpr Div::getB() const {
   return getNode(*this)->b;
 }
 
-template <> bool isa<Div>(IndexExpr e) {
+template <> TACO_EXPORT bool isa<Div>(IndexExpr e) {
   return isa<DivNode>(e.ptr);
 }
 
-template <> Div to<Div>(IndexExpr e) {
+template <> TACO_EXPORT Div to<Div>(IndexExpr e) {
   taco_iassert(isa<Div>(e));
   return Div(to<DivNode>(e.ptr));
 }
@@ -1049,11 +1049,11 @@ IndexExpr Sqrt::getA() const {
   return getNode(*this)->a;
 }
 
-template <> bool isa<Sqrt>(IndexExpr e) {
+template <> TACO_EXPORT bool isa<Sqrt>(IndexExpr e) {
   return isa<SqrtNode>(e.ptr);
 }
 
-template <> Sqrt to<Sqrt>(IndexExpr e) {
+template <> TACO_EXPORT Sqrt to<Sqrt>(IndexExpr e) {
   taco_iassert(isa<Sqrt>(e));
   return Sqrt(to<SqrtNode>(e.ptr));
 }
@@ -1070,11 +1070,11 @@ IndexExpr Cast::getA() const {
   return getNode(*this)->a;
 }
 
-template <> bool isa<Cast>(IndexExpr e) {
+template <> TACO_EXPORT bool isa<Cast>(IndexExpr e) {
   return isa<CastNode>(e.ptr);
 }
 
-template <> Cast to<Cast>(IndexExpr e) {
+template <> TACO_EXPORT Cast to<Cast>(IndexExpr e) {
   taco_iassert(isa<Cast>(e));
   return Cast(to<CastNode>(e.ptr));
 }
@@ -1097,11 +1097,11 @@ const std::vector<IndexExpr>& CallIntrinsic::getArgs() const {
   return getNode(*this)->args;
 }
 
-template <> bool isa<CallIntrinsic>(IndexExpr e) {
+template <> TACO_EXPORT bool isa<CallIntrinsic>(IndexExpr e) {
   return isa<CallIntrinsicNode>(e.ptr);
 }
 
-template <> CallIntrinsic to<CallIntrinsic>(IndexExpr e) {
+template <> TACO_EXPORT CallIntrinsic to<CallIntrinsic>(IndexExpr e) {
   taco_iassert(isa<CallIntrinsic>(e));
   return CallIntrinsic(to<CallIntrinsicNode>(e.ptr));
 }
@@ -1266,11 +1266,11 @@ Reduction sum(IndexVar i, IndexExpr expr) {
   return Reduction(Add(), i, expr);
 }
 
-template <> bool isa<Reduction>(IndexExpr s) {
+template <> TACO_EXPORT bool isa<Reduction>(IndexExpr s) {
   return isa<ReductionNode>(s.ptr);
 }
 
-template <> Reduction to<Reduction>(IndexExpr s) {
+template <> TACO_EXPORT Reduction to<Reduction>(IndexExpr s) {
   taco_iassert(isa<Reduction>(s));
   return Reduction(to<ReductionNode>(s.ptr));
 }
@@ -1586,11 +1586,11 @@ std::vector<IndexVar> Assignment::getReductionVars() const {
   return reductionVars;
 }
 
-template <> bool isa<Assignment>(IndexStmt s) {
+template <> TACO_EXPORT bool isa<Assignment>(IndexStmt s) {
   return isa<AssignmentNode>(s.ptr);
 }
 
-template <> Assignment to<Assignment>(IndexStmt s) {
+template <> TACO_EXPORT Assignment to<Assignment>(IndexStmt s) {
   taco_iassert(isa<Assignment>(s));
   return Assignment(to<AssignmentNode>(s.ptr));
 }
@@ -1653,11 +1653,11 @@ Forall forall(IndexVar i, IndexStmt stmt, ParallelUnit parallel_unit, OutputRace
   return Forall(i, stmt, parallel_unit, output_race_strategy, unrollFactor);
 }
 
-template <> bool isa<Forall>(IndexStmt s) {
+template <> TACO_EXPORT bool isa<Forall>(IndexStmt s) {
   return isa<ForallNode>(s.ptr);
 }
 
-template <> Forall to<Forall>(IndexStmt s) {
+template <> TACO_EXPORT Forall to<Forall>(IndexStmt s) {
   taco_iassert(isa<Forall>(s));
   return Forall(to<ForallNode>(s.ptr));
 }
@@ -1692,11 +1692,11 @@ Where where(IndexStmt consumer, IndexStmt producer) {
   return Where(consumer, producer);
 }
 
-template <> bool isa<Where>(IndexStmt s) {
+template <> TACO_EXPORT bool isa<Where>(IndexStmt s) {
   return isa<WhereNode>(s.ptr);
 }
 
-template <> Where to<Where>(IndexStmt s) {
+template <> TACO_EXPORT Where to<Where>(IndexStmt s) {
   taco_iassert(isa<Where>(s));
   return Where(to<WhereNode>(s.ptr));
 }
@@ -1722,11 +1722,11 @@ Sequence sequence(IndexStmt definition, IndexStmt mutation) {
   return Sequence(definition, mutation);
 }
 
-template <> bool isa<Sequence>(IndexStmt s) {
+template <> TACO_EXPORT bool isa<Sequence>(IndexStmt s) {
   return isa<SequenceNode>(s.ptr);
 }
 
-template <> Sequence to<Sequence>(IndexStmt s) {
+template <> TACO_EXPORT Sequence to<Sequence>(IndexStmt s) {
   taco_iassert(isa<Sequence>(s));
   return Sequence(to<SequenceNode>(s.ptr));
 }
@@ -1752,11 +1752,11 @@ Multi multi(IndexStmt stmt1, IndexStmt stmt2) {
   return Multi(stmt1, stmt2);
 }
 
-template <> bool isa<Multi>(IndexStmt s) {
+template <> TACO_EXPORT bool isa<Multi>(IndexStmt s) {
   return isa<MultiNode>(s.ptr);
 }
 
-template <> Multi to<Multi>(IndexStmt s) {
+template <> TACO_EXPORT Multi to<Multi>(IndexStmt s) {
   taco_iassert(isa<Multi>(s));
   return Multi(to<MultiNode>(s.ptr));
 }
@@ -1781,11 +1781,11 @@ SuchThat suchthat(IndexStmt stmt, std::vector<IndexVarRel> predicate) {
   return SuchThat(stmt, predicate);
 }
 
-template <> bool isa<SuchThat>(IndexStmt s) {
+template <> TACO_EXPORT bool isa<SuchThat>(IndexStmt s) {
   return isa<SuchThatNode>(s.ptr);
 }
 
-template <> SuchThat to<SuchThat>(IndexStmt s) {
+template <> TACO_EXPORT SuchThat to<SuchThat>(IndexStmt s) {
   taco_iassert(isa<SuchThat>(s));
   return SuchThat(to<SuchThatNode>(s.ptr));
 }

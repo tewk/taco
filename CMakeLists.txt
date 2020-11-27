@@ -89,7 +89,7 @@ set(TACO_PROJECT_DIR ${CMAKE_CURRENT_LIST_DIR})
 set(TACO_SRC_DIR     ${TACO_PROJECT_DIR}/src)
 set(TACO_TEST_DIR    ${TACO_PROJECT_DIR}/test)
 set(TACO_TOOLS_DIR   ${TACO_PROJECT_DIR}/tools)
-set(TACO_INCLUDE_DIR ${TACO_PROJECT_DIR}/include)
+set(TACO_INCLUDE_DIR ${TACO_PROJECT_DIR}/include ${taco_BINARY_DIR}/src)
 
 enable_testing()
 include_directories(${TACO_INCLUDE_DIR})

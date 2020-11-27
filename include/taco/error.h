@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <ostream>
+#include <taco_export.h>
 
 namespace taco {
 
@@ -19,7 +20,7 @@ private:
 };
 
 /// Error report (based on Halide's Error.h)
-struct ErrorReport {
+struct TACO_EXPORT ErrorReport {
   enum Kind { User, Internal, Temporary };
 
   std::ostringstream *msg;

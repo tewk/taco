@@ -21,6 +21,7 @@
 #include "taco/ir_tags.h"
 #include "taco/lower/iterator.h"
 #include "taco/index_notation/provenance_graph.h"
+#include <taco_export.h>
 
 namespace taco {
 
@@ -84,7 +85,7 @@ class IndexStmtVisitorStrict;
 ///
 /// @see IndexVar Index into index expressions.
 /// @see TensorVar Operands of index expressions.
-class IndexExpr : public util::IntrusivePtr<const IndexExprNode> {
+class TACO_EXPORT IndexExpr : public util::IntrusivePtr<const IndexExprNode> {
 public:
   IndexExpr() : util::IntrusivePtr<const IndexExprNode>(nullptr) {}
   IndexExpr(const IndexExprNode* n) : util::IntrusivePtr<const IndexExprNode>(n) {}
@@ -161,44 +162,44 @@ public:
   void accept(IndexExprVisitorStrict *) const;
 
   /// Print the index expression.
-  friend std::ostream& operator<<(std::ostream&, const IndexExpr&);
+  TACO_EXPORT friend std::ostream& operator<<(std::ostream&, const IndexExpr&);
 };
 
 /// Check if two index expressions are isomorphic.
-bool isomorphic(IndexExpr, IndexExpr);
+TACO_EXPORT bool isomorphic(IndexExpr, IndexExpr);
 
 /// Compare two index expressions by value.
-bool equals(IndexExpr, IndexExpr);
+TACO_EXPORT bool equals(IndexExpr, IndexExpr);
 
 /// Construct and returns an expression that negates this expression.
 /// ```
 /// A(i,j) = -B(i,j);
 /// ```
-IndexExpr operator-(const IndexExpr&);
+TACO_EXPORT IndexExpr operator-(const IndexExpr&);
 
 /// Add two index expressions.
 /// ```
 /// A(i,j) = B(i,j) + C(i,j);
 /// ```
-IndexExpr operator+(const IndexExpr&, const IndexExpr&);
+TACO_EXPORT IndexExpr operator+(const IndexExpr&, const IndexExpr&);
 
 /// Subtract an index expressions from another.
 /// ```
 /// A(i,j) = B(i,j) - C(i,j);
 /// ```
-IndexExpr operator-(const IndexExpr&, const IndexExpr&);
+TACO_EXPORT IndexExpr operator-(const IndexExpr&, const IndexExpr&);
 
 /// Multiply two index expressions.
 /// ```
 /// A(i,j) = B(i,j) * C(i,j);  // Component-wise multiplication
 /// ```
-IndexExpr operator*(const IndexExpr&, const IndexExpr&);
+TACO_EXPORT IndexExpr operator*(const IndexExpr&, const IndexExpr&);
 
 /// Divide an index expression by another.
 /// ```
 /// A(i,j) = B(i,j) / C(i,j);  // Component-wise division
-/// ```
-IndexExpr operator/(const IndexExpr&, const IndexExpr&);
+/// TACO_EXPORT ```
+TACO_EXPORT IndexExpr operator/(const IndexExpr&, const IndexExpr&);
 
 /// Return true if the index statement is of the given subtype.  The subtypes
 /// are Assignment, Forall, Where, Sequence, and Multi.
@@ -215,7 +216,7 @@ template <typename SubType> SubType to(IndexExpr);
 /// happens when they occur on the left-hand-side of an assignment.
 ///
 /// @see TensorVar Calling `operator()` on a `TensorVar` returns an `Assign`.
-class Access : public IndexExpr {
+class TACO_EXPORT Access : public IndexExpr {
 public:
   Access() = default;
   Access(const Access&) = default;
@@ -253,7 +254,7 @@ public:
 
 /// A literal index expression is a scalar literal that is embedded in the code.
 /// @note In the future we may allow general tensor literals.
-class Literal : public IndexExpr {
+class TACO_EXPORT Literal : public IndexExpr {
 public:
   Literal() = default;
   Literal(const LiteralNode*);
@@ -288,7 +289,7 @@ public:
 /// ```
 /// a(i) = -b(i);
 /// ```
-class Neg : public IndexExpr {
+class TACO_EXPORT Neg : public IndexExpr {
 public:
   Neg() = default;
   Neg(const NegNode*);
@@ -304,7 +305,7 @@ public:
 /// ```
 /// a(i) = b(i) + c(i);
 /// ```
-class Add : public IndexExpr {
+class TACO_EXPORT Add : public IndexExpr {
 public:
   Add();
   Add(const AddNode*);
@@ -321,7 +322,7 @@ public:
 /// ```
 /// a(i) = b(i) - c(i);
 /// ```
-class Sub : public IndexExpr {
+class TACO_EXPORT Sub : public IndexExpr {
 public:
   Sub();
   Sub(const SubNode*);
@@ -338,7 +339,7 @@ public:
 /// ```
 /// a(i) = b(i) * c(i);
 /// ```
-class Mul : public IndexExpr {
+class TACO_EXPORT Mul : public IndexExpr {
 public:
   Mul();
   Mul(const MulNode*);
@@ -355,7 +356,7 @@ public:
 /// ```
 /// a(i) = b(i) / c(i);
 /// ```
-class Div : public IndexExpr {
+class TACO_EXPORT Div : public IndexExpr {
 public:
   Div();
   Div(const DivNode*);
@@ -372,7 +373,7 @@ public:
 /// ```
 /// a(i) = sqrt(b(i));
 /// ```
-class Sqrt : public IndexExpr {
+class TACO_EXPORT Sqrt : public IndexExpr {
 public:
   Sqrt() = default;
   Sqrt(const SqrtNode*);
@@ -388,7 +389,7 @@ public:
 /// ```
 /// a(i) = cast<float>(b(i))
 /// ```
-class Cast : public IndexExpr {
+class TACO_EXPORT Cast : public IndexExpr {
 public:
   Cast() = default;
   Cast(const CastNode*);
@@ -406,7 +407,7 @@ public:
 /// a(i) = pow(b(i),2);
 /// ...
 /// ```
-class CallIntrinsic : public IndexExpr {
+class TACO_EXPORT CallIntrinsic : public IndexExpr {
 public:
   CallIntrinsic() = default;
   CallIntrinsic(const CallIntrinsicNode*);
@@ -420,44 +421,44 @@ public:
 };
 
 /// Create calls to various intrinsics.
-IndexExpr mod(IndexExpr, IndexExpr);
-IndexExpr abs(IndexExpr);
-IndexExpr pow(IndexExpr, IndexExpr);
-IndexExpr square(IndexExpr);
-IndexExpr cube(IndexExpr);
-IndexExpr sqrt(IndexExpr);
-IndexExpr cbrt(IndexExpr);
-IndexExpr exp(IndexExpr);
-IndexExpr log(IndexExpr);
-IndexExpr log10(IndexExpr);
-IndexExpr sin(IndexExpr);
-IndexExpr cos(IndexExpr);
-IndexExpr tan(IndexExpr);
-IndexExpr asin(IndexExpr);
-IndexExpr acos(IndexExpr);
-IndexExpr atan(IndexExpr);
-IndexExpr atan2(IndexExpr, IndexExpr);
-IndexExpr sinh(IndexExpr);
-IndexExpr cosh(IndexExpr);
-IndexExpr tanh(IndexExpr);
-IndexExpr asinh(IndexExpr);
-IndexExpr acosh(IndexExpr);
-IndexExpr atanh(IndexExpr);
-IndexExpr gt(IndexExpr, IndexExpr);
-IndexExpr lt(IndexExpr, IndexExpr);
-IndexExpr gte(IndexExpr, IndexExpr);
-IndexExpr lte(IndexExpr, IndexExpr);
-IndexExpr eq(IndexExpr, IndexExpr);
-IndexExpr neq(IndexExpr, IndexExpr);
-IndexExpr max(IndexExpr, IndexExpr);
-IndexExpr min(IndexExpr, IndexExpr);
-IndexExpr heaviside(IndexExpr, IndexExpr = IndexExpr());
+TACO_EXPORT IndexExpr mod(IndexExpr, IndexExpr);
+TACO_EXPORT IndexExpr abs(IndexExpr);
+TACO_EXPORT IndexExpr pow(IndexExpr, IndexExpr);
+TACO_EXPORT IndexExpr square(IndexExpr);
+TACO_EXPORT IndexExpr cube(IndexExpr);
+TACO_EXPORT IndexExpr sqrt(IndexExpr);
+TACO_EXPORT IndexExpr cbrt(IndexExpr);
+TACO_EXPORT IndexExpr exp(IndexExpr);
+TACO_EXPORT IndexExpr log(IndexExpr);
+TACO_EXPORT IndexExpr log10(IndexExpr);
+TACO_EXPORT IndexExpr sin(IndexExpr);
+TACO_EXPORT IndexExpr cos(IndexExpr);
+TACO_EXPORT IndexExpr tan(IndexExpr);
+TACO_EXPORT IndexExpr asin(IndexExpr);
+TACO_EXPORT IndexExpr acos(IndexExpr);
+TACO_EXPORT IndexExpr atan(IndexExpr);
+TACO_EXPORT IndexExpr atan2(IndexExpr, IndexExpr);
+TACO_EXPORT IndexExpr sinh(IndexExpr);
+TACO_EXPORT IndexExpr cosh(IndexExpr);
+TACO_EXPORT IndexExpr tanh(IndexExpr);
+TACO_EXPORT IndexExpr asinh(IndexExpr);
+TACO_EXPORT IndexExpr acosh(IndexExpr);
+TACO_EXPORT IndexExpr atanh(IndexExpr);
+TACO_EXPORT IndexExpr gt(IndexExpr, IndexExpr);
+TACO_EXPORT IndexExpr lt(IndexExpr, IndexExpr);
+TACO_EXPORT IndexExpr gte(IndexExpr, IndexExpr);
+TACO_EXPORT IndexExpr lte(IndexExpr, IndexExpr);
+TACO_EXPORT IndexExpr eq(IndexExpr, IndexExpr);
+TACO_EXPORT IndexExpr neq(IndexExpr, IndexExpr);
+TACO_EXPORT IndexExpr max(IndexExpr, IndexExpr);
+TACO_EXPORT IndexExpr min(IndexExpr, IndexExpr);
+TACO_EXPORT IndexExpr heaviside(IndexExpr, IndexExpr = IndexExpr());
 
-IndexExpr Not(IndexExpr);
+TACO_EXPORT IndexExpr Not(IndexExpr);
 
 
 /// A reduction over the components indexed by the reduction variable.
-class Reduction : public IndexExpr {
+class TACO_EXPORT Reduction : public IndexExpr {
 public:
   Reduction() = default;
   Reduction(const ReductionNode*);
@@ -471,11 +472,11 @@ public:
 };
 
 /// Create a summation index expression.
-Reduction sum(IndexVar i, IndexExpr expr);
+TACO_EXPORT Reduction sum(IndexVar i, IndexExpr expr);
 
 /// A an index statement computes a tensor.  The index statements are
 /// assignment, forall, where, multi, and sequence.
-class IndexStmt : public util::IntrusivePtr<const IndexStmtNode> {
+class TACO_EXPORT IndexStmt : public util::IntrusivePtr<const IndexStmtNode> {
 public:
   IndexStmt();
   IndexStmt(const IndexStmtNode* n);
@@ -643,13 +644,13 @@ public:
 };
 
 /// Check if two index statements are isomorphic.
-bool isomorphic(IndexStmt, IndexStmt);
+TACO_EXPORT bool isomorphic(IndexStmt, IndexStmt);
 
 /// Compare two index statments by value.
-bool equals(IndexStmt, IndexStmt);
+TACO_EXPORT bool equals(IndexStmt, IndexStmt);
 
 /// Print the index statement.
-std::ostream& operator<<(std::ostream&, const IndexStmt&);
+TACO_EXPORT std::ostream& operator<<(std::ostream&, const IndexStmt&);
 
 /// Return true if the index statement is of the given subtype.  The subtypes
 /// are Assignment, Forall, Where, Multi, and Sequence.
@@ -661,7 +662,7 @@ template <typename SubType> SubType to(IndexStmt);
 
 /// An assignment statement assigns an index expression to the locations in a
 /// tensor given by an lhs access expression.
-class Assignment : public IndexStmt {
+class TACO_EXPORT Assignment : public IndexStmt {
 public:
   Assignment() = default;
   Assignment(const AssignmentNode*);
@@ -696,7 +697,7 @@ public:
 };
 
 
-class Yield : public IndexStmt {
+class TACO_EXPORT Yield : public IndexStmt {
 public:
   Yield() = default;
   Yield(const YieldNode*);
@@ -713,7 +714,7 @@ public:
 
 /// A forall statement binds an index variable to values and evaluates the
 /// sub-statement for each of these values.
-class Forall : public IndexStmt {
+class TACO_EXPORT Forall : public IndexStmt {
 public:
   Forall() = default;
   Forall(const ForallNode*);
@@ -732,13 +733,13 @@ public:
 };
 
 /// Create a forall index statement.
-Forall forall(IndexVar i, IndexStmt stmt);
-Forall forall(IndexVar i, IndexStmt stmt, ParallelUnit parallel_unit, OutputRaceStrategy output_race_strategy, size_t unrollFactor = 0);
+TACO_EXPORT Forall forall(IndexVar i, IndexStmt stmt);
+TACO_EXPORT Forall forall(IndexVar i, IndexStmt stmt, ParallelUnit parallel_unit, OutputRaceStrategy output_race_strategy, size_t unrollFactor = 0);
 
 
 /// A where statment has a producer statement that binds a tensor variable in
 /// the environment of a consumer statement.
-class Where : public IndexStmt {
+class TACO_EXPORT Where : public IndexStmt {
 public:
   Where() = default;
   Where(const WhereNode*);
@@ -761,13 +762,13 @@ public:
 };
 
 /// Create a where index statement.
-Where where(IndexStmt consumer, IndexStmt producer);
+TACO_EXPORT Where where(IndexStmt consumer, IndexStmt producer);
 
 
 /// A sequence statement has two statements, a definition and a mutation, that
 /// are executed in sequence.  The defintion creates an index variable and the
 /// mutation updates it.
-class Sequence : public IndexStmt {
+class TACO_EXPORT Sequence : public IndexStmt {
 public:
   Sequence() = default;
   Sequence(const SequenceNode*);
@@ -780,12 +781,12 @@ public:
 };
 
 /// Create a sequence index statement.
-Sequence sequence(IndexStmt definition, IndexStmt mutation);
+TACO_EXPORT Sequence sequence(IndexStmt definition, IndexStmt mutation);
 
 
 /// A multi statement has two statements that are executed separately, and let
 /// us compute more than one tensor in a concrete index notation statement.
-class Multi : public IndexStmt {
+class TACO_EXPORT Multi : public IndexStmt {
 public:
   Multi() = default;
   Multi(const MultiNode*);
@@ -798,11 +799,11 @@ public:
 };
 
 /// Create a multi index statement.
-Multi multi(IndexStmt stmt1, IndexStmt stmt2);
+TACO_EXPORT Multi multi(IndexStmt stmt1, IndexStmt stmt2);
 
 /// Index variables are used to index into tensors in index expressions, and
 /// they represent iteration over the tensor modes they index into.
-class IndexVar : public util::Comparable<IndexVar> {
+class TACO_EXPORT IndexVar : public util::Comparable<IndexVar> {
 public:
   IndexVar();
   IndexVar(const std::string& name);
@@ -810,8 +811,8 @@ public:
   /// Returns the name of the index variable.
   std::string getName() const;
 
-  friend bool operator==(const IndexVar&, const IndexVar&);
-  friend bool operator<(const IndexVar&, const IndexVar&);
+  TACO_EXPORT friend bool operator==(const IndexVar&, const IndexVar&);
+  TACO_EXPORT friend bool operator<(const IndexVar&, const IndexVar&);
 
 
 private:
@@ -823,11 +824,11 @@ struct IndexVar::Content {
   std::string name;
 };
 
-std::ostream& operator<<(std::ostream&, const IndexVar&);
+TACO_EXPORT std::ostream& operator<<(std::ostream&, const IndexVar&);
 
 /// A suchthat statement provides a set of IndexVarRel that constrain
 /// the iteration space for the child concrete index notation
-class SuchThat : public IndexStmt {
+class TACO_EXPORT SuchThat : public IndexStmt {
 public:
   SuchThat() = default;
   SuchThat(const SuchThatNode*);
@@ -840,11 +841,11 @@ public:
 };
 
 /// Create a suchthat index statement.
-SuchThat suchthat(IndexStmt stmt, std::vector<IndexVarRel> predicate);
+TACO_EXPORT SuchThat suchthat(IndexStmt stmt, std::vector<IndexVarRel> predicate);
 
 /// A tensor variable in an index expression, which can either be an operand
 /// or the result of the expression.
-class TensorVar : public util::Comparable<TensorVar> {
+class TACO_EXPORT TensorVar : public util::Comparable<TensorVar> {
 public:
   TensorVar();
   TensorVar(const Type& type);
@@ -902,15 +903,15 @@ public:
   /// Add a scalar expression to a scalar tensor.
   Assignment operator+=(IndexExpr);
 
-  friend bool operator==(const TensorVar&, const TensorVar&);
-  friend bool operator<(const TensorVar&, const TensorVar&);
+  TACO_EXPORT friend bool operator==(const TensorVar&, const TensorVar&);
+  TACO_EXPORT friend bool operator<(const TensorVar&, const TensorVar&);
 
 private:
   struct Content;
   std::shared_ptr<Content> content;
 };
 
-std::ostream& operator<<(std::ostream&, const TensorVar&);
+TACO_EXPORT std::ostream& operator<<(std::ostream&, const TensorVar&);
 
 
 /// Check whether the statment is in the einsum index notation dialect.
@@ -918,83 +919,83 @@ std::ostream& operator<<(std::ostream&, const TensorVar&);
 /// nodes, and is a sum of product, e.g., `a*...*b + ... + c*...*d`.    You can
 /// optionally pass in a pointer to a string that the reason why it is not
 /// concrete notation is printed to.
-bool isEinsumNotation(IndexStmt, std::string* reason=nullptr);
+TACO_EXPORT bool isEinsumNotation(IndexStmt, std::string* reason=nullptr);
 
 /// Check whether the statement is in the reduction index notation dialect.
 /// This means the statement is an assignment and that every reduction variable
 /// has a reduction node nested above all variable uses.  You can optionally
 /// pass in a pointer to a string that the reason why it is not concrete
 /// notation is printed to.
-bool isReductionNotation(IndexStmt, std::string* reason=nullptr);
+TACO_EXPORT bool isReductionNotation(IndexStmt, std::string* reason=nullptr);
 
 /// Check whether the statement is in the concrete index notation dialect.
 /// This means every index variable has a forall node, there are no reduction
 /// nodes, and that every reduction variable use is nested inside a compound
 /// assignment statement.  You can optionally pass in a pointer to a string
 /// that the reason why it is not concrete notation is printed to.
-bool isConcreteNotation(IndexStmt, std::string* reason=nullptr);
+TACO_EXPORT bool isConcreteNotation(IndexStmt, std::string* reason=nullptr);
 
 /// Convert einsum notation to reduction notation, by applying Einstein's
 /// summation convention to sum non-free/reduction variables over their term.
-Assignment makeReductionNotation(Assignment);
-IndexStmt makeReductionNotation(IndexStmt);
+TACO_EXPORT Assignment makeReductionNotation(Assignment);
+TACO_EXPORT IndexStmt makeReductionNotation(IndexStmt);
 
 /// Convert reduction notation to concrete notation, by inserting forall nodes,
 /// replacing reduction nodes by compound assignments, and inserting temporaries
 /// as needed.
-IndexStmt makeConcreteNotation(IndexStmt);
+TACO_EXPORT IndexStmt makeConcreteNotation(IndexStmt);
 
 /// Returns the results of the index statement, in the order they appear.
-std::vector<TensorVar> getResults(IndexStmt stmt);
+TACO_EXPORT std::vector<TensorVar> getResults(IndexStmt stmt);
 
 /// Returns the input tensors to the index statement, in the order they appear.
-std::vector<TensorVar> getArguments(IndexStmt stmt);
+TACO_EXPORT std::vector<TensorVar> getArguments(IndexStmt stmt);
 
 /// Returns the temporaries in the index statement, in the order they appear.
-std::vector<TensorVar> getTemporaries(IndexStmt stmt);
+TACO_EXPORT std::vector<TensorVar> getTemporaries(IndexStmt stmt);
 
 /// Returns the tensors in the index statement.
-std::vector<TensorVar> getTensorVars(IndexStmt stmt);
+TACO_EXPORT std::vector<TensorVar> getTensorVars(IndexStmt stmt);
 
 /// Returns the result accesses, in the order they appear, as well as the set of
 /// result accesses that are reduced into.
-std::pair<std::vector<Access>,std::set<Access>> getResultAccesses(IndexStmt stmt);
+TACO_EXPORT std::pair<std::vector<Access>,std::set<Access>> getResultAccesses(IndexStmt stmt);
 
 /// Returns the input accesses, in the order they appear.
-std::vector<Access> getArgumentAccesses(IndexStmt stmt);
+TACO_EXPORT std::vector<Access> getArgumentAccesses(IndexStmt stmt);
 
 /// Returns the index variables in the index statement.
-std::vector<IndexVar> getIndexVars(IndexStmt stmt);
+TACO_EXPORT std::vector<IndexVar> getIndexVars(IndexStmt stmt);
 
 /// Returns the index variables in the index expression.
-std::vector<IndexVar> getIndexVars(IndexExpr expr);
+TACO_EXPORT std::vector<IndexVar> getIndexVars(IndexExpr expr);
 
 /// Returns the reduction variables in the index statement.
-std::vector<IndexVar> getReductionVars(IndexStmt stmt);
+TACO_EXPORT std::vector<IndexVar> getReductionVars(IndexStmt stmt);
 
 /// Convert index notation tensor variables to IR pointer variables.
-std::vector<ir::Expr> createVars(const std::vector<TensorVar>& tensorVars,
+TACO_EXPORT std::vector<ir::Expr> createVars(const std::vector<TensorVar>& tensorVars,
                                  std::map<TensorVar, ir::Expr>* vars, 
                                  bool isParameter=false);
 
 
 /// Simplify an index expression by setting the zeroed Access expressions to
 /// zero and then propagating and removing zeroes.
-IndexExpr zero(IndexExpr, const std::set<Access>& zeroed);
+TACO_EXPORT IndexExpr zero(IndexExpr, const std::set<Access>& zeroed);
 
 /// Simplify an index expression by setting the zeroed Access expressions to
 /// zero and then propagating and removing zeroes.
-IndexStmt zero(IndexStmt, const std::set<Access>& zeroed);
+TACO_EXPORT IndexStmt zero(IndexStmt, const std::set<Access>& zeroed);
 
 /// Create an `other` tensor with the given name and format, 
 /// and return tensor(indexVars) = other(indexVars) if otherIsOnRight,
 /// and otherwise returns other(indexVars) = tensor(indexVars).
-IndexStmt generatePackStmt(TensorVar tensor,
+TACO_EXPORT IndexStmt generatePackStmt(TensorVar tensor,
                            std::string otherName, Format otherFormat, 
                            std::vector<IndexVar> indexVars, bool otherIsOnRight);
 
 /// Same as generatePackStmt, where otherFormat is COO.
-IndexStmt generatePackCOOStmt(TensorVar tensor, 
+TACO_EXPORT IndexStmt generatePackCOOStmt(TensorVar tensor, 
                               std::vector<IndexVar> indexVars, bool otherIsOnRight);
 
 }

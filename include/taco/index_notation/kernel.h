@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include <taco_export.h>
 
 namespace taco {
 
@@ -19,7 +20,7 @@ class Module;
 /// They can be called to do all these things at once (`evaluate`), to only
 /// allocate memory and assemble indices (`assemble`), or to only compute
 /// component values (`compute`).
-class Kernel {
+class TACO_EXPORT Kernel {
 public:
   /// Construct an undefined kernel.
   Kernel();
@@ -58,7 +59,7 @@ public:
   bool defined();
 
   /// Print the tensor compute kernel.
-  friend std::ostream& operator<<(std::ostream&, const Kernel&);
+  TACO_EXPORT friend std::ostream& operator<<(std::ostream&, const Kernel&);
 
 private:
   struct Content;
@@ -70,7 +71,7 @@ private:
 };
 
 /// Compile a concrete index notation statement to a runnable kernel.
-Kernel compile(IndexStmt stmt);
+TACO_EXPORT Kernel compile(IndexStmt stmt);
 
 }
 #endif

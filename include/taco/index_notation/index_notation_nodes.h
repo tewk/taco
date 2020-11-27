@@ -276,13 +276,13 @@ struct SequenceNode : public IndexStmtNode {
 
 /// Returns true if expression e is of type E.
 template <typename E>
-inline bool isa(const IndexExprNode* e) {
+TACO_EXPORT inline bool isa(const IndexExprNode* e) {
   return e != nullptr && dynamic_cast<const E*>(e) != nullptr;
 }
 
 /// Casts the expression e to type E.
 template <typename E>
-inline const E* to(const IndexExprNode* e) {
+TACO_EXPORT inline const E* to(const IndexExprNode* e) {
   taco_iassert(isa<E>(e)) <<
       "Cannot convert " << typeid(e).name() << " to " << typeid(E).name();
   return static_cast<const E*>(e);
@@ -290,20 +290,20 @@ inline const E* to(const IndexExprNode* e) {
 
 /// Returns true if statement e is of type S.
 template <typename S>
-inline bool isa(const IndexStmtNode* s) {
+TACO_EXPORT inline bool isa(const IndexStmtNode* s) {
   return s != nullptr && dynamic_cast<const S*>(s) != nullptr;
 }
 
 /// Casts the index statement node s to subtype S.
 template <typename SubType>
-inline const SubType* to(const IndexStmtNode* s) {
+TACO_EXPORT inline const SubType* to(const IndexStmtNode* s) {
   taco_iassert(isa<SubType>(s)) <<
       "Cannot convert " << typeid(s).name() << " to " << typeid(SubType).name();
   return static_cast<const SubType*>(s);
 }
 
 template <typename I>
-inline const typename I::Node* getNode(const I& stmt) {
+TACO_EXPORT inline const typename I::Node* getNode(const I& stmt) {
   taco_iassert(isa<typename I::Node>(stmt.ptr));
   return static_cast<const typename I::Node*>(stmt.ptr);
 }

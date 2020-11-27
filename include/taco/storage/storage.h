@@ -23,7 +23,7 @@ class Array;
 /// contains the tensor values and one index per mode.  The type of each
 /// mode index is determined by the mode type in the format, and the
 /// ordering of the mode indices is determined by the format mode ordering.
-class TensorStorage {
+class TACO_EXPORT TensorStorage {
 public:
 
   /// Construct tensor storage for the given format.
@@ -74,10 +74,10 @@ private:
 
 
 /// Compare tensor storage objects.
-bool equals(TensorStorage a, TensorStorage b);
+TACO_EXPORT bool equals(TensorStorage a, TensorStorage b);
 
 /// Print Storage objects to a stream.
-std::ostream& operator<<(std::ostream&, const TensorStorage&);
+TACO_EXPORT std::ostream& operator<<(std::ostream&, const TensorStorage&);
 
 }
 #endif

@@ -6,6 +6,7 @@
 #include <vector>
 #include <ostream>
 #include "taco/type.h"
+#include <taco_export.h>
 
 namespace taco {
 
@@ -16,7 +17,7 @@ class ModeFormatImpl;
 
 /// A Format describes the data layout of a tensor, and the sparse index data
 /// structures that describe locations of non-zero tensor components.
-class Format {
+class TACO_EXPORT Format {
 public:
   /// Create a format for a 0-order tensor (a scalar).
   Format();
@@ -71,15 +72,15 @@ private:
   std::vector<std::vector<Datatype>> levelArrayTypes;
 };
 
-bool operator==(const Format&, const Format&);
-bool operator!=(const Format&, const Format&);
-std::ostream& operator<<(std::ostream&, const Format&);
+TACO_EXPORT bool operator==(const Format&, const Format&);
+TACO_EXPORT bool operator!=(const Format&, const Format&);
+TACO_EXPORT std::ostream& operator<<(std::ostream&, const Format&);
 
 
 /// The type of a mode defines how it is stored.  For example, a mode may be
 /// stored as a dense array, a compressed sparse representation, or a hash map.
 /// New mode formats can be defined by extending ModeTypeImpl.
-class ModeFormat {
+class TACO_EXPORT ModeFormat {
 public:
   /// Aliases for predefined mode formats
   static ModeFormat dense;       /// e.g., first mode in CSR
@@ -138,9 +139,9 @@ public:
   /// type can be used to indicate a mode whose format is not (yet) known.
   bool defined() const;
 
-  friend bool operator==(const ModeFormat&, const ModeFormat&);
-  friend bool operator!=(const ModeFormat&, const ModeFormat&);
-  friend std::ostream& operator<<(std::ostream&, const ModeFormat&);
+  TACO_EXPORT friend bool operator==(const ModeFormat&, const ModeFormat&);
+  TACO_EXPORT friend bool operator!=(const ModeFormat&, const ModeFormat&);
+  TACO_EXPORT friend std::ostream& operator<<(std::ostream&, const ModeFormat&);
 
 private:
   std::shared_ptr<const ModeFormatImpl> impl;
@@ -150,7 +151,7 @@ private:
 };
 
 
-class ModeFormatPack {
+class TACO_EXPORT ModeFormatPack {
 public:
   ModeFormatPack(const std::vector<ModeFormat> modeFormats);
   ModeFormatPack(const std::initializer_list<ModeFormat> modeFormats);
@@ -164,34 +165,34 @@ private:
   std::vector<ModeFormat> modeFormats;
 };
 
-bool operator==(const ModeFormatPack&, const ModeFormatPack&);
-bool operator!=(const ModeFormatPack&, const ModeFormatPack&);
-std::ostream& operator<<(std::ostream&, const ModeFormatPack&);
+TACO_EXPORT bool operator==(const ModeFormatPack&, const ModeFormatPack&);
+TACO_EXPORT bool operator!=(const ModeFormatPack&, const ModeFormatPack&);
+TACO_EXPORT std::ostream& operator<<(std::ostream&, const ModeFormatPack&);
 
 
 /// Predefined formats
 /// @{
-extern const ModeFormat Dense;
-extern const ModeFormat Compressed;
-extern const ModeFormat Sparse;
-extern const ModeFormat Singleton;
+TACO_EXPORT extern const ModeFormat Dense;
+TACO_EXPORT extern const ModeFormat Compressed;
+TACO_EXPORT extern const ModeFormat Sparse;
+TACO_EXPORT extern const ModeFormat Singleton;
 
-extern const ModeFormat dense;
-extern const ModeFormat compressed;
-extern const ModeFormat sparse;
-extern const ModeFormat singleton;
+TACO_EXPORT extern const ModeFormat dense;
+TACO_EXPORT extern const ModeFormat compressed;
+TACO_EXPORT extern const ModeFormat sparse;
+TACO_EXPORT extern const ModeFormat singleton;
 
-extern const Format CSR;
-extern const Format CSC;
-extern const Format DCSR;
-extern const Format DCSC;
+TACO_EXPORT extern const Format CSR;
+TACO_EXPORT extern const Format CSC;
+TACO_EXPORT extern const Format DCSR;
+TACO_EXPORT extern const Format DCSC;
 
 const Format COO(int order, bool isUnique = true, bool isOrdered = true, 
                  bool isAoS = false, const std::vector<int>& modeOrdering = {});
 /// @}
 
 /// True if all modes are dense.
-bool isDense(const Format&);
+TACO_EXPORT bool isDense(const Format&);
 
 }
 #endif

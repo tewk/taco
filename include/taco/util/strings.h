@@ -5,6 +5,7 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <taco_export.h>
 
 // To get the value of a compiler macro variable
 #define STRINGIFY(x) #x
@@ -70,15 +71,15 @@ std::string join(const std::map<K,V> &collection, const std::string &sep=", ") {
 }
 
 /// Split the string.
-std::vector<std::string> split(const std::string &str, const std::string &delim,
+TACO_EXPORT std::vector<std::string> split(const std::string &str, const std::string &delim,
                                bool keepDelim = false);
 
 /// Returns the text repeated n times
-std::string repeat(std::string text, size_t n);
+TACO_EXPORT std::string repeat(std::string text, size_t n);
 
 /// Returns a string of `n` characters where `text` is centered and the rest
 /// is filled with `fill`.
-std::string fill(std::string text, char fill, size_t n);
+TACO_EXPORT std::string fill(std::string text, char fill, size_t n);
 
 }}
 #endif

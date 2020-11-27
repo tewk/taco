@@ -156,7 +156,7 @@ private:
 /// Reference to a IndexTypeUnion and calls methods on TypedIndex with dereferenced value.
 /// Similar to TypedIndexVal.
 /// NOTE: The implementations of these methods are very similar to TypedComponentRef in typed_value.h make sure to keep in sync.
-class TypedIndexRef: public TypedIndex {
+class TACO_EXPORT TypedIndexRef: public TypedIndex {
 public:
   /// Create a TypedIndexRef initialized with the value stored at ptr of the size of DataType t
   template<typename T>

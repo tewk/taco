@@ -18,7 +18,7 @@ public:
   CodeGen(std::ostream& stream, CodeGenType type) : IRPrinter(stream), codeGenType(type) {};
   CodeGen(std::ostream& stream, bool color, bool simplify, CodeGenType type) : IRPrinter(stream, color, simplify), codeGenType(type) {};
   /// Initialize the default code generator
-  static std::shared_ptr<CodeGen> init_default(std::ostream &dest, OutputKind outputKind);
+  TACO_EXPORT static std::shared_ptr<CodeGen> init_default(std::ostream &dest, OutputKind outputKind);
 
   /// Compile a lowered function
   virtual void compile(Stmt stmt, bool isFirst=false) =0;

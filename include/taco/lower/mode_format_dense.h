@@ -5,7 +5,7 @@
 
 namespace taco {
 
-class DenseModeFormat : public ModeFormatImpl {
+class TACO_EXPORT DenseModeFormat : public ModeFormatImpl {
 public:
   DenseModeFormat();
   DenseModeFormat(const bool isOrdered, const bool isUnique);

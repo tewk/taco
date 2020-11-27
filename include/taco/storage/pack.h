@@ -14,6 +14,7 @@
 #include "taco/storage/typed_vector.h"
 #include "taco/storage/storage.h"
 #include "taco/storage/coordinate.h"
+#include <taco_export.h>
  
 namespace taco {
 
@@ -21,7 +22,7 @@ namespace ir {
 class Stmt;
 }
 
-TensorStorage pack(Datatype                             datatype,
+TACO_EXPORT TensorStorage pack(Datatype                 datatype,
                    const std::vector<int>&              dimensions,
                    const Format&                        format,
                    const std::vector<TypedIndexVector>& coordinates,

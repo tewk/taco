@@ -4,7 +4,8 @@
 #include <string>
 #include <set>
 #include <memory>
-
+#include <taco_export.h>
+	
 namespace taco {
 
 class IndexStmt;
@@ -22,7 +23,7 @@ class Stmt;
 /// overridden to insert custom lowering code to e.g. target specialized
 /// hardware.  See `lowerer_impl.h` for information about how to create custom
 /// lowerers.
-class Lowerer {
+class TACO_EXPORT Lowerer {
 public:
   /// Construct a default lowerer that lowers to imperative multi-threaded code.
   Lowerer();
@@ -44,14 +45,14 @@ private:
 /// assemble result indices, compute result values, or both. You may optionally
 /// also provide a custom `Lowerer` to specify custom ways to lower some or all
 /// parts of a concrete index notation statement.
-ir::Stmt lower(IndexStmt stmt, std::string functionName,
+TACO_EXPORT ir::Stmt lower(IndexStmt stmt, std::string functionName,
                bool assemble=true, bool compute=true, bool pack=false, bool unpack=false,
                Lowerer lowerer=Lowerer());
 
 /// Check whether the an index statement can be lowered to C code.  If the
 /// statement cannot be lowered and a `reason` string is provided then it is
 /// filled with the a reason.
-bool isLowerable(IndexStmt stmt, std::string* reason=nullptr);
+TACO_EXPORT bool isLowerable(IndexStmt stmt, std::string* reason=nullptr);
 
 }
 #endif

@@ -9,7 +9,9 @@ file(GLOB TEST_SOURCES *.cpp)
 
 add_executable(taco-test ${TEST_SOURCES} ${TEST_HEADERS})
 target_link_libraries(taco-test taco-gtest)
-target_link_libraries(taco-test pthread)
+if( NOT WIN32)
+	target_link_libraries(taco-test pthread)
+endif()
 target_link_libraries(taco-test taco)
 
 if(${CMAKE_VERSION} VERSION_LESS "3.9.0")

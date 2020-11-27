@@ -153,7 +153,7 @@ struct IRHandle : public util::IntrusivePtr<const IRNode> {
 };
 
 /** An expression. */
-class Expr : public IRHandle {
+class TACO_EXPORT Expr : public IRHandle {
 public:
   Expr() : IRHandle() {}
 
@@ -194,13 +194,13 @@ public:
   Stmt(const BaseStmtNode* stmt) : IRHandle(stmt) {}
 };
 
-std::ostream &operator<<(std::ostream &os, const Stmt &);
-std::ostream &operator<<(std::ostream &os, const Expr &);
+TACO_EXPORT std::ostream &operator<<(std::ostream &os, const Stmt &);
+TACO_EXPORT std::ostream &operator<<(std::ostream &os, const Expr &);
 
 // Actual nodes start here
 
 /** A literal. */
-struct Literal : public ExprNode<Literal> {
+struct TACO_EXPORT Literal : public ExprNode<Literal> {
   TypedComponentPtr value;
 
   static Expr make(TypedComponentVal val, Datatype type) {
@@ -250,7 +250,7 @@ struct Literal : public ExprNode<Literal> {
 
 
 /** A variable.  */
-struct Var : public ExprNode<Var> {
+struct TACO_EXPORT Var : public ExprNode<Var> {
   std::string name;
   bool is_ptr;
   bool is_tensor;
@@ -264,7 +264,7 @@ struct Var : public ExprNode<Var> {
 
 
 /** Negation */
-struct Neg : public ExprNode<Neg> {
+struct TACO_EXPORT Neg : public ExprNode<Neg> {
   Expr a;
   
   static Expr make(Expr a);
@@ -273,7 +273,7 @@ struct Neg : public ExprNode<Neg> {
 };
 
 /** A square root */
-struct Sqrt : public ExprNode<Sqrt> {
+struct TACO_EXPORT Sqrt : public ExprNode<Sqrt> {
   Expr a;
   
   static Expr make(Expr a);
@@ -282,7 +282,7 @@ struct Sqrt : public ExprNode<Sqrt> {
 };
 
 /** Addition. */
-struct Add : public ExprNode<Add> {
+struct TACO_EXPORT Add : public ExprNode<Add> {
   Expr a;
   Expr b;
 
@@ -293,7 +293,7 @@ struct Add : public ExprNode<Add> {
 };
 
 /** Subtraction. */
-struct Sub : public ExprNode<Sub> {
+struct TACO_EXPORT Sub : public ExprNode<Sub> {
   Expr a;
   Expr b;
 
@@ -304,7 +304,7 @@ struct Sub : public ExprNode<Sub> {
 };
 
 /** Multiplication. */
-struct Mul : public ExprNode<Mul> {
+struct TACO_EXPORT Mul : public ExprNode<Mul> {
   Expr a;
   Expr b;
 
@@ -315,7 +315,7 @@ struct Mul : public ExprNode<Mul> {
 };
 
 /** Division. */
-struct Div : public ExprNode<Div> {
+struct TACO_EXPORT Div : public ExprNode<Div> {
   Expr a;
   Expr b;
 
@@ -326,7 +326,7 @@ struct Div : public ExprNode<Div> {
 };
 
 /** Remainder. */
-struct Rem : public ExprNode<Rem> {
+struct TACO_EXPORT Rem : public ExprNode<Rem> {
   Expr a;
   Expr b;
 
@@ -337,7 +337,7 @@ struct Rem : public ExprNode<Rem> {
 };
 
 /** Minimum of two values. */
-struct Min : public ExprNode<Min> {
+struct TACO_EXPORT Min : public ExprNode<Min> {
   std::vector<Expr> operands;
 
   static Expr make(Expr a, Expr b);
@@ -349,7 +349,7 @@ struct Min : public ExprNode<Min> {
 };
 
 /** Maximum of two values. */
-struct Max : public ExprNode<Max> {
+struct TACO_EXPORT Max : public ExprNode<Max> {
   std::vector<Expr> operands;
 
   static Expr make(Expr a, Expr b);
@@ -361,7 +361,7 @@ struct Max : public ExprNode<Max> {
 };
 
 /** Bitwise and: a & b */
-struct BitAnd : public ExprNode<BitAnd> {
+struct TACO_EXPORT BitAnd : public ExprNode<BitAnd> {
   Expr a;
   Expr b;
 
@@ -371,7 +371,7 @@ struct BitAnd : public ExprNode<BitAnd> {
 };
 
 /** Bitwise or: a | b */
-struct BitOr : public ExprNode<BitOr> {
+struct TACO_EXPORT BitOr : public ExprNode<BitOr> {
   Expr a;
   Expr b;
 
@@ -381,7 +381,7 @@ struct BitOr : public ExprNode<BitOr> {
 };
 
 /** Equality: a==b. */
-struct Eq : public ExprNode<Eq> {
+struct TACO_EXPORT Eq : public ExprNode<Eq> {
   Expr a;
   Expr b;
 
@@ -391,7 +391,7 @@ struct Eq : public ExprNode<Eq> {
 };
 
 /** Inequality: a!=b. */
-struct Neq : public ExprNode<Neq> {
+struct TACO_EXPORT Neq : public ExprNode<Neq> {
 public:
   Expr a;
   Expr b;
@@ -402,7 +402,7 @@ public:
 };
 
 /** Greater than: a > b. */
-struct Gt : public ExprNode<Gt> {
+struct TACO_EXPORT Gt : public ExprNode<Gt> {
   Expr a;
   Expr b;
 
@@ -412,7 +412,7 @@ struct Gt : public ExprNode<Gt> {
 };
 
 /** Less than: a < b. */
-struct Lt : public ExprNode<Lt> {
+struct TACO_EXPORT Lt : public ExprNode<Lt> {
   Expr a;
   Expr b;
 
@@ -422,7 +422,7 @@ struct Lt : public ExprNode<Lt> {
 };
 
 /** Greater than or equal: a >= b. */
-struct Gte : public ExprNode<Gte> {
+struct TACO_EXPORT Gte : public ExprNode<Gte> {
   Expr a;
   Expr b;
 
@@ -432,7 +432,7 @@ struct Gte : public ExprNode<Gte> {
 };
 
 /** Less than or equal: a <= b. */
-struct Lte : public ExprNode<Lte> {
+struct TACO_EXPORT Lte : public ExprNode<Lte> {
   Expr a;
   Expr b;
 
@@ -442,7 +442,7 @@ struct Lte : public ExprNode<Lte> {
 };
 
 /** And: a && b. */
-struct And : public ExprNode<And> {
+struct TACO_EXPORT And : public ExprNode<And> {
   Expr a;
   Expr b;
 
@@ -452,7 +452,7 @@ struct And : public ExprNode<And> {
 };
 
 /** Or: a || b. */
-struct Or : public ExprNode<Or> {
+struct TACO_EXPORT Or : public ExprNode<Or> {
   Expr a;
   Expr b;
 
@@ -462,7 +462,7 @@ struct Or : public ExprNode<Or> {
 };
 
 /** Type cast. */
-struct Cast : public ExprNode<Cast> {
+struct TACO_EXPORT Cast : public ExprNode<Cast> {
   Expr a;
 
   static Expr make(Expr a, Datatype newType);
@@ -471,7 +471,7 @@ struct Cast : public ExprNode<Cast> {
 };
 
 /** A call of a function. */
-struct Call : public ExprNode<Call> {
+struct TACO_EXPORT Call : public ExprNode<Call> {
   std::string func;
   std::vector<Expr> args;
 
@@ -482,7 +482,7 @@ struct Call : public ExprNode<Call> {
 };
 
 /** A load from an array: arr[loc]. */
-struct Load : public ExprNode<Load> {
+struct TACO_EXPORT Load : public ExprNode<Load> {
   Expr arr;
   Expr loc;
 
@@ -493,7 +493,7 @@ struct Load : public ExprNode<Load> {
 };
 
 /** Allocate size bytes of memory */
-struct Malloc : public ExprNode<Malloc> {
+struct TACO_EXPORT Malloc : public ExprNode<Malloc> {
 public:
   Expr size;
 
@@ -503,7 +503,7 @@ public:
 };
 
 /** Compute the size of a type */
-struct Sizeof : public ExprNode<Sizeof> {
+struct TACO_EXPORT Sizeof : public ExprNode<Sizeof> {
 public:
   Type sizeofType;
 
@@ -513,7 +513,7 @@ public:
 };
 
 /** A sequence of statements. */
-struct Block : public StmtNode<Block> {
+struct TACO_EXPORT Block : public StmtNode<Block> {
   std::vector<Stmt> contents;
   void append(Stmt stmt) { contents.push_back(stmt); }
 
@@ -536,7 +536,7 @@ struct Block : public StmtNode<Block> {
 };
 
 /** A variable scope. */
-struct Scope : public StmtNode<Scope> {
+struct TACO_EXPORT Scope : public StmtNode<Scope> {
   Stmt scopedStmt;
 
   static Stmt make(Stmt scopedStmt);
@@ -545,7 +545,7 @@ struct Scope : public StmtNode<Scope> {
 };
 
 /** A store to an array location: arr[loc] = data */
-struct Store : public StmtNode<Store> {
+struct TACO_EXPORT Store : public StmtNode<Store> {
   Expr arr;
   Expr loc;
   Expr data;
@@ -558,7 +558,7 @@ struct Store : public StmtNode<Store> {
 };
 
 /** A conditional statement. */
-struct IfThenElse : public StmtNode<IfThenElse> {
+struct TACO_EXPORT IfThenElse : public StmtNode<IfThenElse> {
   Expr cond;
   Stmt then;
   Stmt otherwise;
@@ -570,7 +570,7 @@ struct IfThenElse : public StmtNode<IfThenElse> {
 };
 
 /** A series of conditionals. */
-struct Case : public StmtNode<Case> {
+struct TACO_EXPORT Case : public StmtNode<Case> {
   std::vector<std::pair<Expr,Stmt>> clauses;
   bool alwaysMatch;
   
@@ -580,7 +580,7 @@ struct Case : public StmtNode<Case> {
 };
 
 /** A switch statement. */
-struct Switch : public StmtNode<Switch> {
+struct TACO_EXPORT Switch : public StmtNode<Switch> {
   std::vector<std::pair<Expr,Stmt>> cases;
   Expr controlExpr;
   
@@ -599,7 +599,7 @@ enum class LoopKind {Serial, Static, Dynamic, Runtime, Vectorized, Static_Chunke
  * to use.  By default (0), it will not set a specific width and
  * let clang determine the width to use.
  */
-struct For : public StmtNode<For> {
+struct TACO_EXPORT For : public StmtNode<For> {
   Expr var;
   Expr start;
   Expr end;
@@ -620,7 +620,7 @@ struct For : public StmtNode<For> {
 /** A while loop.  We prefer For loops when possible, but
  * these are necessary for merging.
  */
-struct While : public StmtNode<While> {
+struct TACO_EXPORT While : public StmtNode<While> {
   Expr cond;
   Stmt contents;
   LoopKind kind;
@@ -633,7 +633,7 @@ struct While : public StmtNode<While> {
 };
 
 /** Top-level function for codegen */
-struct Function : public StmtNode<Function> {
+struct TACO_EXPORT Function : public StmtNode<Function> {
   std::string name;
   Stmt body;
   std::vector<Expr> inputs;
@@ -649,7 +649,7 @@ struct Function : public StmtNode<Function> {
 };
 
 /** Declaring and initializing a Var */
-struct VarDecl : public StmtNode<VarDecl> {
+struct TACO_EXPORT VarDecl : public StmtNode<VarDecl> {
   Expr var;
   Expr rhs;
 
@@ -659,7 +659,7 @@ struct VarDecl : public StmtNode<VarDecl> {
 };
 
 /** Assigning a Var to an expression */
-struct Assign : public StmtNode<Assign> {
+struct TACO_EXPORT Assign : public StmtNode<Assign> {
   Expr lhs;
   Expr rhs;
   bool use_atomics;
@@ -671,7 +671,7 @@ struct Assign : public StmtNode<Assign> {
 };
 
 /** Yield a result component */
-struct Yield : public StmtNode<Yield> {
+struct TACO_EXPORT Yield : public StmtNode<Yield> {
   std::vector<Expr> coords;
   Expr val;
 
@@ -681,7 +681,7 @@ struct Yield : public StmtNode<Yield> {
 };
 
 /** Allocate memory for a ptr var */
-struct Allocate : public StmtNode<Allocate> {
+struct TACO_EXPORT Allocate : public StmtNode<Allocate> {
   Expr var;
   Expr num_elements;
   Expr old_elements; // used for realloc in CUDA
@@ -694,7 +694,7 @@ struct Allocate : public StmtNode<Allocate> {
 };
 
 /** Free memory for a ptr var */
-struct Free : public StmtNode<Free> {
+struct TACO_EXPORT Free : public StmtNode<Free> {
   Expr var;
 
   static Stmt make(Expr var);
@@ -703,7 +703,7 @@ struct Free : public StmtNode<Free> {
 };
 
 /** A comment */
-struct Comment : public StmtNode<Comment> {
+struct TACO_EXPORT Comment : public StmtNode<Comment> {
   std::string text;
   
   static Stmt make(std::string text);
@@ -712,14 +712,14 @@ struct Comment : public StmtNode<Comment> {
 };
 
 /** A blank statement (no-op) */
-struct BlankLine : public StmtNode<BlankLine> {
+struct TACO_EXPORT BlankLine : public StmtNode<BlankLine> {
   static Stmt make();
 
   static const IRNodeType _type_info = IRNodeType::BlankLine;
 };
 
 /** Breaks current loop */
-struct Break : public StmtNode<Break> {
+struct TACO_EXPORT Break : public StmtNode<Break> {
   static Stmt make();
 
   static const IRNodeType _type_info = IRNodeType::Break;
@@ -729,7 +729,7 @@ struct Break : public StmtNode<Break> {
  * Takes in a printf-style format string and Exprs to pass
  * for the values.
  */
-struct Print : public StmtNode<Print> {
+struct TACO_EXPORT Print : public StmtNode<Print> {
   std::string fmt;
   std::vector<Expr> params;
   
@@ -741,7 +741,7 @@ struct Print : public StmtNode<Print> {
 /** A tensor property.
  * This unpacks one of the properties of a tensor into an Expr.
  */
-struct GetProperty : public ExprNode<GetProperty> {
+struct TACO_EXPORT GetProperty : public ExprNode<GetProperty> {
   Expr tensor;
   TensorProperty property;
   int mode;
@@ -756,24 +756,24 @@ struct GetProperty : public ExprNode<GetProperty> {
 };
 
 template <typename E>
-inline bool isa(Expr e) {
+TACO_EXPORT inline bool isa(Expr e) {
   return e.defined() && dynamic_cast<const E*>(e.ptr) != nullptr;
 }
 
 template <typename S>
-inline bool isa(Stmt s) {
+TACO_EXPORT inline bool isa(Stmt s) {
   return s.defined() && dynamic_cast<const S*>(s.ptr) != nullptr;
 }
 
 template <typename E>
-inline const E* to(Expr e) {
+TACO_EXPORT inline const E* to(Expr e) {
   taco_iassert(isa<E>(e)) <<
       "Cannot convert " << typeid(e).name() << " to " <<typeid(E).name();
   return static_cast<const E*>(e.ptr);
 }
 
 template <typename S>
-inline const S* to(Stmt s) {
+TACO_EXPORT inline const S* to(Stmt s) {
   taco_iassert(isa<S>(s)) <<
       "Cannot convert " << typeid(s).name() << " to " <<typeid(S).name();
   return static_cast<const S*>(s.ptr);

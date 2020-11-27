@@ -80,7 +80,7 @@ public:
 };
 
 /// Visit nodes in an expression.
-class IndexNotationVisitor : public IndexNotationVisitorStrict {
+class TACO_EXPORT IndexNotationVisitor : public IndexNotationVisitorStrict {
 public:
   virtual ~IndexNotationVisitor();
 

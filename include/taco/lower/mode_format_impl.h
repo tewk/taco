@@ -56,7 +56,7 @@ std::ostream& operator<<(std::ostream&, const ModeFunction&);
 /// The abstract class to inherit from to add a new mode format to the system.
 /// The mode type implementation can then be passed to the `ModeType`
 /// constructor.
-class ModeFormatImpl {
+class TACO_EXPORT ModeFormatImpl {
 public:
   ModeFormatImpl(std::string name, bool isFull, bool isOrdered, bool isUnique, 
                  bool isBranchless, bool isCompact, bool hasCoordValIter, 

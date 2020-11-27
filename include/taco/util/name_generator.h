@@ -4,12 +4,13 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <taco_export.h>
 
 namespace taco {
 namespace util {
 
-std::string uniqueName(char prefix);
-std::string uniqueName(const std::string& prefix);
+TACO_EXPORT std::string uniqueName(char prefix);
+TACO_EXPORT std::string uniqueName(const std::string& prefix);
 
 int getUniqueId();
 

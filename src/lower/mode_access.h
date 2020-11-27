@@ -8,7 +8,7 @@ namespace taco {
 
 /// The access of a single mode in an `Access` expression.  For example, the
 /// expression `A(i,j)` consist of two mode accesses, A(1) and A(2).
-class ModeAccess : public util::Comparable<ModeAccess> {
+class TACO_EXPORT ModeAccess : public util::Comparable<ModeAccess> {
 public:
 
   /// Create a mode access.
@@ -25,9 +25,9 @@ private:
   int mode;
 };
 
-bool operator==(const ModeAccess&, const ModeAccess&);
-bool operator<(const ModeAccess&, const ModeAccess&);
-std::ostream &operator<<(std::ostream &os, const ModeAccess &);
+TACO_EXPORT bool operator==(const ModeAccess&, const ModeAccess&);
+TACO_EXPORT bool operator<(const ModeAccess&, const ModeAccess&);
+TACO_EXPORT std::ostream &operator<<(std::ostream &os, const ModeAccess &);
 
 }
 #endif

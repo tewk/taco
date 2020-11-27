@@ -2,10 +2,11 @@
 #define TACO_MODE_FORMAT_COMPRESSED_H
 
 #include "taco/lower/mode_format_impl.h"
+#include <taco_export.h>
 
 namespace taco {
 
-class CompressedModeFormat : public ModeFormatImpl {
+class TACO_EXPORT CompressedModeFormat : public ModeFormatImpl {
 public:
   CompressedModeFormat();
   CompressedModeFormat(bool isFull, bool isOrdered,

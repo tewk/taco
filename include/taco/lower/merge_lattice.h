@@ -7,6 +7,7 @@
 #include <ostream>
 #include <memory>
 #include "taco/index_notation/index_notation.h"
+#include <taco_export.h>
 
 namespace taco {
 
@@ -20,7 +21,7 @@ class MergePoint;
  * A merge lattice represents a sequence of disjunctions, where each term is a
  * MergeLatticePoint.
  */
-class MergeLattice {
+class TACO_EXPORT MergeLattice {
 public:
   /**
    * Construct a merge lattice from a concrete index notation forall statement
@@ -92,9 +93,9 @@ public:
   MergeLattice(std::vector<MergePoint> points);
 };
 
-std::ostream& operator<<(std::ostream&, const MergeLattice&);
-bool operator==(const MergeLattice&, const MergeLattice&);
-bool operator!=(const MergeLattice&, const MergeLattice&);
+TACO_EXPORT std::ostream& operator<<(std::ostream&, const MergeLattice&);
+TACO_EXPORT bool operator==(const MergeLattice&, const MergeLattice&);
+TACO_EXPORT bool operator!=(const MergeLattice&, const MergeLattice&);
 
 
 /**
@@ -116,7 +117,7 @@ bool operator!=(const MergeLattice&, const MergeLattice&);
  *
  *  - Results are appended to or inserted into.
  */
-class MergePoint {
+class TACO_EXPORT MergePoint {
 public:
   /**
    * Returns the iterators that co-iterate over this merge point.
@@ -161,15 +162,15 @@ public:
              const std::vector<Iterator>& results);
 };
 
-std::ostream& operator<<(std::ostream&, const MergePoint&);
-bool operator==(const MergePoint&, const MergePoint&);
-bool operator!=(const MergePoint&, const MergePoint&);
+TACO_EXPORT std::ostream& operator<<(std::ostream&, const MergePoint&);
+TACO_EXPORT bool operator==(const MergePoint&, const MergePoint&);
+TACO_EXPORT bool operator!=(const MergePoint&, const MergePoint&);
 
 /**
  * Remove coordinate iterators that iterate over the same coordinates, such
  * as full ordered coordinate iterators.
  */
-std::vector<Iterator> deduplicate(const std::vector<Iterator>& iterators);
+TACO_EXPORT std::vector<Iterator> deduplicate(const std::vector<Iterator>& iterators);
 
 /**
  * Simplify a set of iterators by removing redundant iterators. This means
@@ -177,7 +178,7 @@ std::vector<Iterator> deduplicate(const std::vector<Iterator>& iterators);
  * since $S \intersect D = S$. If there are no sparse steps then the simplified
  * merge point consist of a single dense step.
  */
-std::vector<Iterator> simplify(const std::vector<Iterator>&);
+TACO_EXPORT std::vector<Iterator> simplify(const std::vector<Iterator>&);
 
 }
 #endif

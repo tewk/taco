@@ -2,6 +2,7 @@
 #define TACO_STORAGE_TYPED_VALUE_H
 
 #include <taco/type.h>
+#include <taco_export.h>>
 
 namespace taco {
 
@@ -13,7 +14,7 @@ class TypedComponentPtr;
 /// TypedComponentVal and TypedComponentRef are wrappers around the implementations of these methods.
 /// We do not use abstract methods to avoid the performance penalty.
 /// NOTE: The implementations of these methods are very similar to TypedIndex in typed_index.h make sure to keep in sync.
-class TypedComponent {
+class TACO_EXPORT TypedComponent {
 public:
   /// Gets the DataType of this TypedComponent
   const Datatype& getType() const;
@@ -107,7 +108,7 @@ private:
 /// Pointer to a dynamically typed value. Dereferences to a TypedComponentRef.
 /// Useful for doing pointer manipulations on dynamically sized values
 /// NOTE: The implementations of these methods are very similar to TypedIndexPtr in typed_index.h make sure to keep in sync.
-class TypedComponentPtr {
+class TACO_EXPORT TypedComponentPtr {
 public:
   /// Creates a TypedComponentPtr with a nullptr
   TypedComponentPtr();
@@ -156,7 +157,7 @@ private:
 /// Reference to a ValueTypeUnion and calls methods on TypedComponent with dereferenced value.
 /// Similar to TypedComponentVal.
 /// NOTE: The implementations of these methods are very similar to TypedIndexRef in typed_index.h make sure to keep in sync.
-class TypedComponentRef: public TypedComponent {
+class TACO_EXPORT TypedComponentRef: public TypedComponent {
 public:
   /// Create a TypedComponentRef initialized with the value stored at ptr of the size of DataType t
   template<typename T>

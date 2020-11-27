@@ -24,8 +24,8 @@ public:
   }
 };
 
-std::ostream& operator<<(std::ostream&, const IndexVarRel&);
-bool operator==(const IndexVarRel&, const IndexVarRel&);
+TACO_EXPORT std::ostream& operator<<(std::ostream&, const IndexVarRel&);
+TACO_EXPORT bool operator==(const IndexVarRel&, const IndexVarRel&);
 
 /// Index variable relations are used to track how new index variables are derived
 /// in the scheduling language
@@ -75,7 +75,7 @@ struct IndexVarRelNode : public util::Manageable<IndexVarRelNode>,
 
 /// The split relation takes a parentVar's iteration space and stripmines into an outervar that iterates over splitFactor-sized
 /// iterations over innerVar
-struct SplitRelNode : public IndexVarRelNode {
+struct TACO_EXPORT SplitRelNode : public IndexVarRelNode {
   SplitRelNode(IndexVar parentVar, IndexVar outerVar, IndexVar innerVar, size_t splitFactor);
 
   const IndexVar& getParentVar() const;
@@ -109,7 +109,7 @@ private:
   std::shared_ptr<Content> content;
 };
 
-bool operator==(const SplitRelNode&, const SplitRelNode&);
+TACO_EXPORT bool operator==(const SplitRelNode&, const SplitRelNode&);
 
 /// The Pos relation maps an index variable to the position space of a given access
 struct PosRelNode : public IndexVarRelNode {
@@ -153,7 +153,7 @@ private:
   std::shared_ptr<Content> content;
 };
 
-bool operator==(const PosRelNode&, const PosRelNode&);
+TACO_EXPORT bool operator==(const PosRelNode&, const PosRelNode&);
 
 /// The fuse relation fuses the iteration space of two directly nested index variables
 struct FuseRelNode : public IndexVarRelNode {
@@ -187,7 +187,7 @@ private:
   std::shared_ptr<Content> content;
 };
 
-bool operator==(const FuseRelNode&, const FuseRelNode&);
+TACO_EXPORT bool operator==(const FuseRelNode&, const FuseRelNode&);
 
 /// The bound relation allows expressing a constraint or value known at compile-time that allows for compile-time optimizations
 struct BoundRelNode : public IndexVarRelNode {
@@ -220,7 +220,7 @@ private:
   std::shared_ptr<Content> content;
 };
 
-bool operator==(const BoundRelNode&, const BoundRelNode&);
+TACO_EXPORT bool operator==(const BoundRelNode&, const BoundRelNode&);
 
 /// The precompute relation allows creating a new precomputeVar that is iterated over for the precompute loop and shares same sizes as parentVar
 /// This allows precomputeVar to be scheduled separately from the parentVar
@@ -246,12 +246,12 @@ private:
   std::shared_ptr<Content> content;
 };
 
-bool operator==(const PrecomputeRelNode&, const PrecomputeRelNode&);
+TACO_EXPORT bool operator==(const PrecomputeRelNode&, const PrecomputeRelNode&);
 
 
 /// An IndexVarprovGraph is a side IR that takes in Concrete Index Notation and supports querying
 /// relationships between IndexVars. Gets relationships from SuchThat node in Concrete Index Notation
-class ProvenanceGraph {
+class TACO_EXPORT ProvenanceGraph {
 public:
   ProvenanceGraph() {}
   ProvenanceGraph(IndexStmt concreteStmt);

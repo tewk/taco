@@ -6,12 +6,13 @@
 #include <taco/type.h>
 #include <taco/storage/typed_value.h>
 #include "taco/util/collections.h"
+#include <taco_export.h>
 
 namespace taco {
 
 /// An array is a smart pointer to raw memory together with an element type,
 /// a size (number of elements) and a reclamation policy.
-class Array {
+class TACO_EXPORT Array {
 public:
   /// The memory reclamation policy of Array objects. UserOwns means the Array
   /// object will not free its data, free means it will reclaim data  with the
@@ -64,7 +65,7 @@ Array makeArray(T* data, size_t size, Array::Policy policy=Array::UserOwns) {
 }
 
 /// Construct an array of elements of the given type.
-Array makeArray(Datatype type, size_t size);
+TACO_EXPORT Array makeArray(Datatype type, size_t size);
 
 /// Construct an Array from the values.
 template <typename T>

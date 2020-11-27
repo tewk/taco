@@ -26,6 +26,7 @@
 #include "taco/error/error_messages.h"
 #include "taco/util/name_generator.h"
 #include "taco/util/strings.h"
+#include "taco_export.h"
 
 
 namespace taco {
@@ -42,7 +43,7 @@ struct ScalarAccess;
 /// TensorBase is the super-class for all tensors. You can use it directly to
 /// avoid templates, or you can use the templated `Tensor<T>` that inherits from
 /// `TensorBase`.
-class TensorBase {
+class TACO_EXPORT TensorBase {
 public:
   /* --- Constructor Methods --- */
 
@@ -465,24 +466,24 @@ public:
   /* --- Friend Functions    --- */
 
   /// True iff two tensors have the same type and the same values.
-  friend bool equals(const TensorBase&, const TensorBase&);
+  TACO_EXPORT friend bool equals(const TensorBase&, const TensorBase&);
 
   /// True iff two TensorBase objects refer to the same tensor (TensorBase
   /// and Tensor objects are references to tensors).
-  friend bool operator==(const TensorBase& a, const TensorBase& b);
-  friend bool operator!=(const TensorBase& a, const TensorBase& b);
+  TACO_EXPORT friend bool operator==(const TensorBase& a, const TensorBase& b);
+  TACO_EXPORT friend bool operator!=(const TensorBase& a, const TensorBase& b);
 
   /// True iff the address of the tensor referenced by a is smaller than the
   /// address of b.  This is arbitrary and non-deterministic, but necessary for
   /// tensor to be placed in maps.
-  friend bool operator<(const TensorBase& a, const TensorBase& b);
-  friend bool operator>(const TensorBase& a, const TensorBase& b);
-  friend bool operator<=(const TensorBase& a, const TensorBase& b);
-  friend bool operator>=(const TensorBase& a, const TensorBase& b);
+  TACO_EXPORT friend bool operator<(const TensorBase& a, const TensorBase& b);
+  TACO_EXPORT friend bool operator>(const TensorBase& a, const TensorBase& b);
+  TACO_EXPORT friend bool operator<=(const TensorBase& a, const TensorBase& b);
+  TACO_EXPORT friend bool operator>=(const TensorBase& a, const TensorBase& b);
 
   /// Print a tensor to a stream.
-  friend std::ostream& operator<<(std::ostream&, const TensorBase&);
-  friend std::ostream& operator<<(std::ostream&, TensorBase&);
+  TACO_EXPORT friend std::ostream& operator<<(std::ostream&, const TensorBase&);
+  TACO_EXPORT friend std::ostream& operator<<(std::ostream&, TensorBase&);
 
   friend struct AccessTensorNode;
   std::vector<TensorBase> getDependentTensors();
@@ -681,40 +682,40 @@ enum class FileType {
 
 /// Read a tensor from a file. The file format is inferred from the filename
 /// and the tensor is returned packed by default.
-TensorBase read(std::string filename, ModeFormat modeType, bool pack = true);
+TACO_EXPORT TensorBase read(std::string filename, ModeFormat modeType, bool pack = true);
 
 /// Read a tensor from a file. The file format is inferred from the filename
 /// and the tensor is returned packed by default.
-TensorBase read(std::string filename, Format format, bool pack = true);
+TACO_EXPORT TensorBase read(std::string filename, Format format, bool pack = true);
 
 /// Read a tensor from a file of the given file format and the tensor is
 /// returned packed by default.
-TensorBase read(std::string filename, FileType filetype, ModeFormat modetype,
+TACO_EXPORT TensorBase read(std::string filename, FileType filetype, ModeFormat modetype,
                 bool pack = true);
 
 /// Read a tensor from a file of the given file format and the tensor is
 /// returned packed by default.
-TensorBase read(std::string filename, FileType filetype, Format format,
+TACO_EXPORT TensorBase read(std::string filename, FileType filetype, Format format,
                 bool pack = true);
 
 /// Read a tensor from a stream of the given file format. The tensor is returned
 /// packed by default.
-TensorBase read(std::istream& stream, FileType filetype, ModeFormat modetype,
+TACO_EXPORT TensorBase read(std::istream& stream, FileType filetype, ModeFormat modetype,
                 bool pack = true);
 
 /// Read a tensor from a stream of the given file format. The tensor is returned
 /// packed by default.
-TensorBase read(std::istream& stream, FileType filetype, Format format,
+TACO_EXPORT TensorBase read(std::istream& stream, FileType filetype, Format format,
                 bool pack = true);
 
 /// Write a tensor to a file. The file format is inferred from the filename.
-void write(std::string filename, const TensorBase& tensor);
+TACO_EXPORT void write(std::string filename, const TensorBase& tensor);
 
 /// Write a tensor to a file in the given file format.
-void write(std::string filename, FileType filetype, const TensorBase& tensor);
+TACO_EXPORT void write(std::string filename, FileType filetype, const TensorBase& tensor);
 
 /// Write a tensor to a stream in the given file format.
-void write(std::ofstream& file, FileType filetype, const TensorBase& tensor);
+TACO_EXPORT void write(std::ofstream& file, FileType filetype, const TensorBase& tensor);
 
 
 /// Factory function to construct a compressed sparse row (CSR) matrix. The
@@ -818,7 +819,7 @@ void getCSCArrays(const TensorBase& tensor,
 
 
 /// Pack the operands in the given expression.
-void packOperands(const TensorBase& tensor);
+TACO_EXPORT void packOperands(const TensorBase& tensor);
 
 /// Iterate over the typed values of a TensorBase.
 template <typename CType>
@@ -1199,19 +1200,19 @@ enum class ParallelSchedule {
 
 /// Set schedule to use for parallel execution of tensor computations.  This 
 /// will be replaced by a scheduling language in the future.
-void taco_set_parallel_schedule(ParallelSchedule sched, int chunk_size = 0);
+TACO_EXPORT void taco_set_parallel_schedule(ParallelSchedule sched, int chunk_size = 0);
 
 /// Get schedule to use for parallel execution of tensor computations.  This 
 /// will be replaced by a scheduling language in the future.
-void taco_get_parallel_schedule(ParallelSchedule *sched, int *chunk_size);
+TACO_EXPORT void taco_get_parallel_schedule(ParallelSchedule *sched, int *chunk_size);
 
 /// Set maximum number of threads to use for parallel execution of tensor
 /// computations. This will be replaced by a scheduling language in the future.
-void taco_set_num_threads(int num_threads);
+TACO_EXPORT void taco_set_num_threads(int num_threads);
 
 /// Get maximum number of threads to use for parallel execution of tensor 
 /// computations. This will be replaced by a scheduling language in the future.
-int taco_get_num_threads();
+TACO_EXPORT int taco_get_num_threads();
 
 }
 #endif

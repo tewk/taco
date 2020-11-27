@@ -8,12 +8,13 @@
 #include "taco/error.h"
 #include <complex>
 #include <memory>
+#include <taco_export.h>>
 
 namespace taco {
 
 /// A basic taco type. These can be boolean, integer, unsigned integer, float
 /// or complex float at different precisions.
-class Datatype {
+class TACO_EXPORT Datatype {
 public:
   /// The kind of type this object represents.
   enum Kind {
@@ -63,30 +64,30 @@ private:
   Kind kind;
 };
 
-std::ostream& operator<<(std::ostream&, const Datatype&);
-std::ostream& operator<<(std::ostream&, const Datatype::Kind&);
-bool operator==(const Datatype& a, const Datatype& b);
-bool operator!=(const Datatype& a, const Datatype& b);
+TACO_EXPORT std::ostream& operator<<(std::ostream&, const Datatype&);
+TACO_EXPORT std::ostream& operator<<(std::ostream&, const Datatype::Kind&);
+TACO_EXPORT bool operator==(const Datatype& a, const Datatype& b);
+TACO_EXPORT bool operator!=(const Datatype& a, const Datatype& b);
 
-extern Datatype Bool;
-Datatype UInt(int bits = sizeof(unsigned int)*8);
-extern Datatype UInt8;
-extern Datatype UInt16;
-extern Datatype UInt32;
-extern Datatype UInt64;
-extern Datatype UInt128;
-Datatype Int(int bits = sizeof(int)*8);
-extern Datatype Int8;
-extern Datatype Int16;
-extern Datatype Int32;
-extern Datatype Int64;
-extern Datatype Int128;
-Datatype Float(int bits = sizeof(double)*8);
-extern Datatype Float32;
-extern Datatype Float64;
-Datatype Complex(int bits);
-extern Datatype Complex64;
-extern Datatype Complex128;
+TACO_EXPORT extern Datatype Bool;
+TACO_EXPORT Datatype UInt(int bits = sizeof(unsigned int)*8);
+TACO_EXPORT extern Datatype UInt8;
+TACO_EXPORT extern Datatype UInt16;
+TACO_EXPORT extern Datatype UInt32;
+TACO_EXPORT extern Datatype UInt64;
+TACO_EXPORT extern Datatype UInt128;
+TACO_EXPORT Datatype Int(int bits = sizeof(int)*8);
+TACO_EXPORT extern Datatype Int8;
+TACO_EXPORT extern Datatype Int16;
+TACO_EXPORT extern Datatype Int32;
+TACO_EXPORT extern Datatype Int64;
+TACO_EXPORT extern Datatype Int128;
+TACO_EXPORT Datatype Float(int bits = sizeof(double)*8);
+TACO_EXPORT extern Datatype Float32;
+TACO_EXPORT extern Datatype Float64;
+TACO_EXPORT Datatype Complex(int bits);
+TACO_EXPORT extern Datatype Complex64;
+TACO_EXPORT extern Datatype Complex128;
 
 Datatype max_type(Datatype a, Datatype b);
 
@@ -206,7 +207,7 @@ class IndexVar;
 /// variable or fixed sized, which impacts code generation.  Variable dimensions
 /// are provided to kernels as arguments, while fixed dimensions are compiled
 /// into the kernel.
-class Dimension {
+class TACO_EXPORT Dimension {
 public:
   /// Create a variable sized dimension.
   Dimension();
@@ -235,15 +236,15 @@ private:
   std::shared_ptr<Content> content;
 };
 
-bool operator==(const Dimension&, const Dimension&);
-bool operator!=(const Dimension&, const Dimension&);
+TACO_EXPORT bool operator==(const Dimension&, const Dimension&);
+TACO_EXPORT bool operator!=(const Dimension&, const Dimension&);
 
 /// Print a tensor dimension.
-std::ostream& operator<<(std::ostream&, const Dimension&);
+TACO_EXPORT std::ostream& operator<<(std::ostream&, const Dimension&);
 
 
 /// A tensor shape consists of the tensor's dimensions.
-class Shape {
+class TACO_EXPORT Shape {
 public:
   /// Create a default tensor shape: [].
   Shape();
@@ -270,15 +271,15 @@ private:
   std::vector<Dimension> dimensions;
 };
 
-bool operator==(const Shape&, const Shape&);
-bool operator!=(const Shape&, const Shape&);
+TACO_EXPORT bool operator==(const Shape&, const Shape&);
+TACO_EXPORT bool operator!=(const Shape&, const Shape&);
 
 /// Print a tensor shape.
-std::ostream& operator<<(std::ostream&, const Shape&);
+TACO_EXPORT std::ostream& operator<<(std::ostream&, const Shape&);
 
 
 /// A tensor type consists of a shape and a component/data type.
-class Type {
+class TACO_EXPORT Type {
 public:
   /// Create a default tensor type (double scalar)
   Type();
@@ -295,11 +296,11 @@ private:
   Shape shape;
 };
 
-bool operator==(const Type&, const Type&);
-bool operator!=(const Type&, const Type&);
+TACO_EXPORT bool operator==(const Type&, const Type&);
+TACO_EXPORT bool operator!=(const Type&, const Type&);
 
 /// Print a tensor type.
-std::ostream& operator<<(std::ostream&, const Type&);
+TACO_EXPORT std::ostream& operator<<(std::ostream&, const Type&);
 
 /// Check whether the type is a scalar (0-order tensor)
 bool isScalar(const Type& type);

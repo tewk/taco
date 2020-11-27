@@ -39,7 +39,7 @@ struct Target {
 
   /// Gets the target from the environment.  If this is not set in the
   /// environment, it uses the default C99 backend with the current OS
-  Target getTargetFromEnvironment();
+  TACO_EXPORT Target getTargetFromEnvironment();
 
 } // namespace taco
 

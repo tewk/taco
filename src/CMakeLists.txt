@@ -18,8 +18,11 @@ set(TACO_HEADERS ${TACO_HEADERS} ../include/taco/ir_tags.h)
 set(TACO_SOURCES ${TACO_SOURCES} ir_tags.cpp)
 
 add_definitions(${TACO_DEFINITIONS})
-include_directories(${TACO_SRC_DIR})
+include_directories(${TACO_SRC_DIR}
+	${taco_BINARY_DIR}/src)
 add_library(taco ${TACO_LIBRARY_TYPE} ${TACO_HEADERS} ${TACO_SOURCES})
+include(GenerateExportHeader)
+generate_export_header(taco)
 if (CUDA)
   include_directories(${CUDA_INCLUDE_DIRS})
   target_link_libraries(taco INTERFACE ${CUDA_TOOLKIT_ROOT_DIR}/lib64/libcudart.so)

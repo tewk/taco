@@ -107,23 +107,23 @@ protected:
 
 
 /// Rewrites the expression to replace sub-expressions with new expressions.
-IndexExpr replace(IndexExpr expr,
+TACO_EXPORT IndexExpr replace(IndexExpr expr,
                   const std::map<IndexExpr,IndexExpr>& substitutions);
 
 /// Rewrites the expression to replace an index variable with a new variable.
-IndexExpr replace(IndexExpr expr,
+TACO_EXPORT IndexExpr replace(IndexExpr expr,
                   const std::map<IndexVar,IndexVar>& substitutions);
 
 /// Rewrites the statement to replace expressions.
-IndexStmt replace(IndexStmt stmt,
+TACO_EXPORT IndexStmt replace(IndexStmt stmt,
                   const std::map<IndexExpr,IndexExpr>& substitutions);
 
 /// Rewrites the statement to replace statements.
-IndexStmt replace(IndexStmt stmt,
+TACO_EXPORT IndexStmt replace(IndexStmt stmt,
                   const std::map<IndexStmt,IndexStmt>& substitutions);
 
 /// Rewrites the statement to replace tensor variables.
-IndexStmt replace(IndexStmt stmt,
+TACO_EXPORT IndexStmt replace(IndexStmt stmt,
                   const std::map<TensorVar,TensorVar>& substitutions);
 
 }

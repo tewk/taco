@@ -15,7 +15,7 @@ class Array;
 /// An index contains the index data structures of a tensor, but not its values.
 /// Thus, an index has a format and zero or more mode indices that describes the
 /// non-empty coordinates in each mode.
-class Index {
+class TACO_EXPORT Index {
 public:
   /// Construct an empty index.
   Index();
@@ -47,12 +47,12 @@ private:
   std::shared_ptr<Content> content;
 };
 
-std::ostream& operator<<(std::ostream&, const Index&);
+TACO_EXPORT std::ostream& operator<<(std::ostream&, const Index&);
 
 
 /// A mode sub-index of an Index. The type of the mode index is determined by
 /// the Format of the Index it is part of.
-class ModeIndex {
+class TACO_EXPORT ModeIndex {
 public:
   /// Construct an empty mode index.
   ModeIndex();
@@ -78,15 +78,15 @@ private:
 
 /// Factory functions to construct a compressed sparse rows (CSR) index.
 /// @{
-Index makeCSRIndex(size_t numrows, int* rowptr, int* colidx);
-Index makeCSRIndex(const std::vector<int>& rowptr,
+TACO_EXPORT Index makeCSRIndex(size_t numrows, int* rowptr, int* colidx);
+TACO_EXPORT Index makeCSRIndex(const std::vector<int>& rowptr,
                    const std::vector<int>& colidx);
 /// @}
 
 /// Factory functions to construct a compressed sparse columns (CSC) index.
 /// @{
-Index makeCSCIndex(size_t numrows, int* colptr, int* rowidx);
-Index makeCSCIndex(const std::vector<int>& colptr,
+TACO_EXPORT Index makeCSCIndex(size_t numrows, int* colptr, int* rowidx);
+TACO_EXPORT Index makeCSCIndex(const std::vector<int>& colptr,
                    const std::vector<int>& rowidx);
 /// @}
 

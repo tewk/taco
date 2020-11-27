@@ -24,7 +24,7 @@ enum class Token;
 /// string, where tensor access expressions are in the form (e.g.) `A(i,j)`,
 /// A_{i,j} or A_i. A variable is taken to be free if it is used to index the
 /// lhs, and taken to be a summation variable otherwise.
-class Parser : public util::Uncopyable {
+class TACO_EXPORT Parser : public util::Uncopyable {
 public:
   Parser(std::string expression, const std::map<std::string,Format>& formats,
          const std::map<std::string, Datatype>& dataTypes,

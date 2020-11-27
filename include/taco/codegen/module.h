@@ -12,7 +12,7 @@
 namespace taco {
 namespace ir {
 
-class Module {
+class TACO_EXPORT Module {
 public:
   /// Create a module for some target
   Module(Target target=getTargetFromEnvironment())

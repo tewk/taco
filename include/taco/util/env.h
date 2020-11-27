@@ -6,13 +6,14 @@
 #include "taco/tpr.h"
 
 #include "taco/error.h"
+#include <taco_export.h>
 
 namespace taco {
 namespace util {
-std::string getFromEnv(std::string flag, std::string dflt);
-std::string getTmpdir();
-extern std::string cachedtmpdir;
-extern void cachedtmpdirCleanup(void);
+TACO_EXPORT std::string getFromEnv(std::string flag, std::string dflt);
+TACO_EXPORT std::string getTmpdir();
+TACO_EXPORT extern std::string cachedtmpdir;
+TACO_EXPORT extern void cachedtmpdirCleanup(void);
 
 inline std::string getFromEnv(std::string flag, std::string dflt) {
   char const *ret = getenv(flag.c_str());

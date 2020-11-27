@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <taco_export.h>
 
 namespace taco {
 
@@ -25,7 +26,7 @@ enum class IndexVarType {
 ///   variables strictly lower in the tree.
 /// - The tensor paths describe how to iterate over the index variables through
 ///   the indices of the corresponding (sparse or dense) tensors.
-class IterationGraph {
+class TACO_EXPORT IterationGraph {
 public:
   IterationGraph();
 

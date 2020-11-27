@@ -8,11 +8,12 @@
 #include "taco/ir/ir_visitor.h"
 #include "taco/util/scopedmap.h"
 #include "taco/util/name_generator.h"
+#include <taco_export.h>
 
 namespace taco {
 namespace ir {
 
-class IRPrinter : public IRVisitorStrict {
+class TACO_EXPORT IRPrinter : public IRVisitorStrict {
 public:
   IRPrinter(std::ostream& stream);
   IRPrinter(std::ostream& stream, bool color, bool simplify);
